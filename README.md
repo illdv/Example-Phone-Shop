@@ -1,0 +1,1 @@
+##The base is taken from the [https://monsterlessons.com/project/series/internet-magazin-na-reactredux]
