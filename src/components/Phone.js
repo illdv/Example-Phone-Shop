@@ -14,9 +14,9 @@ const Phone = ({ phone, addPhoneToBasket }) =>
       />
       <div className='caption'>
         <h4 className='pull-right'>${phone.price}</h4>
-        <Link to={`/phones/${phone.id}`}>
+        <h5>
           {phone.name}
-        </Link>
+        </h5>
         <p>{take(60, phone.description)}...</p>
         <p className='itemButton'>
           <button
@@ -26,7 +26,7 @@ const Phone = ({ phone, addPhoneToBasket }) =>
             Buy Now!
       </button>
           <Link
-            to={`/phones/${phone.name}`}
+            to={`/phones/${phone.name.replace(/\s/g, '')}`}
             className='btn btn-default'
           >
             More info
@@ -35,8 +35,6 @@ const Phone = ({ phone, addPhoneToBasket }) =>
       </div>
     </div>
   </div>
-
-
 
 
 

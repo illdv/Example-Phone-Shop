@@ -2,7 +2,7 @@ import { FETCH_PHONES_BY_ID, SUCCESS } from '../constants';
 import { merge, prop } from 'ramda'
 
 const initialState = {
-  name: ''
+  id: ''
 }
 
 export default (state = initialState, { type, payload }) => {

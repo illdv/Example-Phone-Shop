@@ -4,16 +4,15 @@ import { fetchPhoneById, addPhoneToBasket } from '../AC'
 import { compose, pick, toPairs } from 'ramda'
 import BasketCart from './BasketCart'
 import { Link } from 'react-router-dom';
-import * as R from 'ramda'
 import { getPhoneById } from '../helpers'
 
 class SelfPhone extends Component {
 
-
+  returnCc = (name) => name.replace(/([A-Z])/g, ' $1').slice(1)
   componentDidMount() {
 
 
-    this.props.fetchPhoneById(this.props.match.params.id)
+    this.props.fetchPhoneById(this.returnCc(this.props.match.params.name))
   }
 
   render() {

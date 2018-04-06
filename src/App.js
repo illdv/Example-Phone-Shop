@@ -14,7 +14,7 @@ class App extends Component {
 
             <Switch>
                 <Redirect from="/" to="/phones" exact />
-                <Route path='/phones/:id' component={SelfPhone} />
+                <Route path='/phones/:name' component={SelfPhone} />
                 <Route path='/categories/:id' component={Phones} />
                 <Route path="/phones" component={Phones} />
                 <Route path="/basket" component={Basket} />

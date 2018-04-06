@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getTotalBasketPrice, getBasketPhonesWithCount } from '../helpers'
 import { isEmpty } from 'ramda'
@@ -7,18 +7,48 @@ import { Link } from 'react-router-dom'
 
 
 
-const Basket = ({ phones, totalPrice, removePhoneFromBasket, checkoutBasket, cleanBasket }) => {
+class Basket extends Component {
 
-  const isBasketEmpty = isEmpty(phones)
+  state = {
+    input: 0
+  }
 
-  const renderContent = () =>
+  render() {
+    const { phones } = this.props
+    const isBasketEmpty = isEmpty(phones)
+    console.log(this.state);
 
-    <div className='table-responsive'>
+    return <div className='container'>
+      <div className='row'>
+        <div className='col-md-9'>
+          {isBasketEmpty ?
+            <div>Your shopping cart is empty</div> :
+            this.renderContent()}
+        </div>
+        <aside className='col-md=3 btn-user-checkout'>
+          {this.renderSidebar()}
+        </aside>
+      </div>
+    </div>
+  }
+
+  renderContent = () => {
+    const { phones, totalPrice, removePhoneFromBasket } = this.props
+    this.handleInput = (count) => e => this.setState({
+      input: +e.target.value + count
+    })
+    this.handleValue = (count) => {
+
+
+      return count
+    }
+    return <div className='table-responsive'>
+
       <table className='table-bordered table-condensed'>
         <tbody>
-          {phones.map((phone, index) => (
+          {phones.map((phone) => (
             <tr
-              key={index}
+              key={phone.name}
               className='row'
             >
               <td className='col'>
@@ -26,7 +56,9 @@ const Basket = ({ phones, totalPrice, removePhoneFromBasket, checkoutBasket, cle
               </td>
               <td className='col'>{phone.name}</td>
               <td className='col'>${phone.price}</td>
-              <td className='col'>{phone.count}</td>
+              <td className='col'>
+                <input onChange={this.handleInput(phone.count)} type='number' value={this.handleValue(phone.count)} />
+              </td>
               <td className='col'>
                 <span onClick={() => removePhoneFromBasket(phone.id)} className='btn btn-block badge-danger' />
               </td>
@@ -45,10 +77,17 @@ const Basket = ({ phones, totalPrice, removePhoneFromBasket, checkoutBasket, cle
 
 
 
+  }
 
 
-  const renderSidebar = () => (
-    <div>
+
+
+
+
+  renderSidebar = () => {
+    const { phones, checkoutBasket, cleanBasket } = this.props
+    const isBasketEmpty = isEmpty(phones)
+    return <div>
       <Link to='/phones' className='btn btn-info btn-block'>
         Continue shopping
       </Link>
@@ -63,21 +102,11 @@ const Basket = ({ phones, totalPrice, removePhoneFromBasket, checkoutBasket, cle
         </React.Fragment>
       }
     </div>
+  }
 
-  )
 
-  return <div className='container'>
-    <div className='row'>
-      <div className='col-md-9'>
-        {isBasketEmpty ?
-          <div>Your shopping cart is empty</div> :
-          renderContent()}
-      </div>
-      <aside className='col-md=3 btn-user-checkout'>
-        {renderSidebar()}
-      </aside>
-    </div>
-  </div>
+
+
 }
 
 

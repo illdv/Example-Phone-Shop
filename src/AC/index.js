@@ -1,5 +1,4 @@
 import { FETCH_PHONES, LOAD_MORE_PHONES, FETCH_PHONES_BY_ID, START, SUCCESS, FAIL, ADD_PHONE_TO_BASKET, SEARCH_PHONE, FETCH_CATEGORIES, REMOVE_PHONE_FROM_BASKET, CLEAN_BASKET } from "../constants";
-import { fetchCategoriesApi } from '../api'
 import { find, propEq, assoc } from 'ramda'
 import { replace } from 'react-router-redux'
 
@@ -8,6 +7,7 @@ const generateId = phones => phones.map(phone => assoc('id', (Date.now() + Math.
 
 const phones = fetch('http://www.mocky.io/v2/5ac4d5522f00002a00f5fc29')
     .then(response => response.json())
+
 
 
 export const fetchPhones = () => dispatch => {
@@ -35,6 +35,7 @@ export const fetchPhones = () => dispatch => {
 export const loadMorePhones = () => (dispatch, getState) => {
 
     const offset = (getState().phonesPage.ids).length
+    console.log(offset);
 
     dispatch({ type: LOAD_MORE_PHONES + START })
 
@@ -58,6 +59,7 @@ export const fetchPhoneById = name => dispatch => {
     dispatch({
         type: FETCH_PHONES_BY_ID + START
     })
+
     phones.then(body => {
 
         dispatch({
@@ -92,25 +94,24 @@ export const searchPhone = text => dispatch => {
     })
 }
 
-export const fetchCategories = () => async dispatch => {
+export const fetchCategories = () => dispatch => {
 
     dispatch({ type: FETCH_CATEGORIES + START })
 
-    try {
-        const categories = await fetchCategoriesApi()
-        dispatch({
-            type: FETCH_CATEGORIES + SUCCESS,
-            payload: categories
-        })
-
-    } catch (err) {
-        dispatch({
-            type: FETCH_CATEGORIES + FAIL,
-            payload: err,
-            error: true
-        })
-        dispatch(replace('/error'))
-    }
+    fetch('http://www.mocky.io/v2/5ac7e0183100006000a57690')
+        .then(response => response.json())
+        .then(body => {
+            dispatch({
+                type: FETCH_CATEGORIES + SUCCESS,
+                payload: body.categories
+            })
+        }).catch(error =>
+            dispatch({
+                type: FETCH_CATEGORIES + FAIL,
+                payload: error,
+                error: true
+            })
+        )
 }
 
 export const removePhoneFromBasket = id => dispatch => {
