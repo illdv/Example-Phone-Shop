@@ -1,19 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchPhoneById, addPhoneToBasket } from '../AC'
-import { getPhoneById } from "../helpers";
 import { compose, pick, toPairs } from 'ramda'
 import BasketCart from './BasketCart'
 import { Link } from 'react-router-dom';
-
+import * as R from 'ramda'
+import { getPhoneById } from '../helpers'
 
 class SelfPhone extends Component {
 
+
   componentDidMount() {
+
+
     this.props.fetchPhoneById(this.props.match.params.id)
   }
 
   render() {
+
     return <div className='view-container'>
       <div className='container'>
         <div className='row'>

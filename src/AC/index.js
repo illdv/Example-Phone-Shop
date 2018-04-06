@@ -1,67 +1,81 @@
 import { FETCH_PHONES, LOAD_MORE_PHONES, FETCH_PHONES_BY_ID, START, SUCCESS, FAIL, ADD_PHONE_TO_BASKET, SEARCH_PHONE, FETCH_CATEGORIES, REMOVE_PHONE_FROM_BASKET, CLEAN_BASKET } from "../constants";
-import { fetchPhonesApi, loadMorePhonesApi, fetchPhoneByIdApi, fetchCategoriesApi } from '../api'
+import { fetchCategoriesApi } from '../api'
+import { find, propEq, assoc } from 'ramda'
+import { replace } from 'react-router-redux'
 
 
+const generateId = phones => phones.map(phone => assoc('id', (Date.now() + Math.random()).toString(), phone))
 
-export const fetchPhones = () => async dispatch => {
+const phones = fetch('http://www.mocky.io/v2/5ac4d5522f00002a00f5fc29')
+    .then(response => response.json())
 
-    dispatch({ type: FETCH_PHONES + START })
 
-
-    const phones = await fetchPhonesApi()
-    const generateId = phones.map(phone => console.log(phone)
-    )
+export const fetchPhones = () => dispatch => {
 
 
     dispatch({
-        type: FETCH_PHONES + SUCCESS,
-        payload: phones
+        type: FETCH_PHONES + START
+    })
+
+    phones.then(body =>
+        dispatch({
+            type: FETCH_PHONES + SUCCESS,
+            payload: generateId(body.phones)
+        })
+    ).catch(error => {
+        dispatch({
+            type: FETCH_PHONES + FAIL,
+            payload: error
+        })
+        dispatch(replace('/error'))
     })
 }
 
 
-
-
-export const loadMorePhones = () => async (dispatch, getState) => {
+export const loadMorePhones = () => (dispatch, getState) => {
 
     const offset = (getState().phonesPage.ids).length
 
     dispatch({ type: LOAD_MORE_PHONES + START })
 
-    try {
-        const phones = await loadMorePhonesApi({ offset })
-        dispatch({
-            type: LOAD_MORE_PHONES + SUCCESS,
-            payload: phones
+    phones.then(body => dispatch({
+        type: LOAD_MORE_PHONES + SUCCESS,
+        payload: generateId(body.phones)
+    })
+    )
+        .catch(error => {
+            dispatch({
+                type: LOAD_MORE_PHONES + FAIL,
+                payload: error
+            })
+            dispatch(replace('/error'))
         })
-
-    } catch (err) {
-        dispatch({
-            type: LOAD_MORE_PHONES + FAIL,
-            payload: err,
-            error: true
-        })
-    }
 }
 
-export const fetchPhoneById = id => async dispatch => {
+
+export const fetchPhoneById = name => dispatch => {
+
     dispatch({
         type: FETCH_PHONES_BY_ID + START
     })
+    phones.then(body => {
 
-    try {
-        const phone = await fetchPhoneByIdApi(id)
         dispatch({
             type: FETCH_PHONES_BY_ID + SUCCESS,
-            payload: phone
+            payload: find(propEq('name', name))(generateId(body.phones))
         })
-    } catch (err) {
+    }
+
+
+    ).catch(err => {
         dispatch({
             type: FETCH_PHONES_BY_ID + FAIL,
             payload: err,
             error: true
         })
+        dispatch(replace('/error'))
     }
+    )
 }
 
 export const addPhoneToBasket = id => dispatch => {
@@ -95,6 +109,7 @@ export const fetchCategories = () => async dispatch => {
             payload: err,
             error: true
         })
+        dispatch(replace('/error'))
     }
 }
 

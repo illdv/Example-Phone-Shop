@@ -26,7 +26,7 @@ const Phone = ({ phone, addPhoneToBasket }) =>
             Buy Now!
       </button>
           <Link
-            to={`/phones/${phone.id}`}
+            to={`/phones/${phone.name}`}
             className='btn btn-default'
           >
             More info
