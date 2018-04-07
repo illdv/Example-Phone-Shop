@@ -26,7 +26,7 @@ const Phone = ({ phone, addPhoneToBasket }) =>
             Buy Now!
       </button>
           <Link
-            to={`/phones/${phone.name.replace(/\s/g, '')}`}
+            to={`/phones/${phone.name}`}
             className='btn btn-default'
           >
             More info

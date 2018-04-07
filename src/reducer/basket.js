@@ -1,4 +1,4 @@
-import { ADD_PHONE_TO_BASKET, REMOVE_PHONE_FROM_BASKET, CLEAN_BASKET } from "../constants";
+import { ADD_PHONE_TO_BASKET, REMOVE_PHONE_FROM_BASKET, CLEAN_BASKET, CHANGE_QUALITY } from "../constants";
 import { append, without, of } from 'ramda'
 
 const initialState = []
@@ -7,6 +7,10 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
     case ADD_PHONE_TO_BASKET:
       return append(payload, state)
+    case CHANGE_QUALITY:
+
+
+      return state
 
     case REMOVE_PHONE_FROM_BASKET:
       return without(of(payload), state)

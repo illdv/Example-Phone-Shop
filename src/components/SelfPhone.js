@@ -8,11 +8,8 @@ import { getPhoneById } from '../helpers'
 
 class SelfPhone extends Component {
 
-  returnCc = (name) => name.replace(/([A-Z])/g, ' $1').slice(1)
   componentDidMount() {
-
-
-    this.props.fetchPhoneById(this.returnCc(this.props.match.params.name))
+    this.props.fetchPhoneById((this.props.match.params.name))
   }
 
   render() {
