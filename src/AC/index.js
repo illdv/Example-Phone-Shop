@@ -1,5 +1,5 @@
 import { FETCH_PHONES, LOAD_MORE_PHONES, FETCH_PHONES_BY_ID, START, SUCCESS, FAIL, ADD_PHONE_TO_BASKET, SEARCH_PHONE, FETCH_CATEGORIES, REMOVE_PHONE_FROM_BASKET, CLEAN_BASKET, CHANGE_QUALITY } from "../constants";
-import { find, propEq, assoc } from 'ramda'
+import { find, propEq, assoc, repeat } from 'ramda'
 import { replace } from 'react-router-redux'
 
 
@@ -87,13 +87,21 @@ export const addPhoneToBasket = id => dispatch => {
         payload: id
     })
 }
-export const handleQuantityToBasket = quantity => dispatch => {
+export const handleQuantityToBasket = (quantity, id) => dispatch => {
 
     dispatch({
         type: CHANGE_QUALITY,
-        payload: quantity
+        payload: { id, quantity }
     })
 }
+
+export const removePhoneFromBasket = id => dispatch => {
+    dispatch({
+        type: REMOVE_PHONE_FROM_BASKET,
+        payload: id
+    })
+}
+
 export const searchPhone = text => dispatch => {
     dispatch({
         type: SEARCH_PHONE,
@@ -121,12 +129,7 @@ export const fetchCategories = () => dispatch => {
         )
 }
 
-export const removePhoneFromBasket = id => dispatch => {
-    dispatch({
-        type: REMOVE_PHONE_FROM_BASKET,
-        payload: id
-    })
-}
+
 
 export const cleanBasket = () => dispatch => {
     dispatch({
