@@ -5,7 +5,9 @@ import { removePhoneFromBasket, handleQuantityToBasket } from '../../AC'
 
 class ContentValue extends Component {
 
-
+  state = {
+    input: this.props.phone.count
+  }
 
   render() {
 
@@ -22,7 +24,7 @@ class ContentValue extends Component {
       <td className='col'>{phone.name}</td>
       <td className='col'>${phone.price}</td>
       <td className='col'>
-        <input onChange={this.handleInput(phone.id)} type='number' defaultValue={phone.count} />
+        <input onChange={this.handleInput(phone.id)} type='number' value={this.state.input} />
       </td>
       <td className='col'>
         <span onClick={() => removePhoneFromBasket(phone.id)} className='btn btn-block badge-danger' />
@@ -31,9 +33,16 @@ class ContentValue extends Component {
 
   }
 
-  handleInput = id => e =>
-    this.props.handleQuantityToBasket(e.target.value, id)
-
+  handleInput = id => e => {
+    const event = e.target.value
+    this.setState(() => {
+      return event >= 1 ?
+        { input: event } :
+        { input: 1 }
+    })
+    event >= 1 &&
+      this.props.handleQuantityToBasket(e.target.value, id)
+  }
 
 }
 

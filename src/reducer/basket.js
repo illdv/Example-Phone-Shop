@@ -1,5 +1,5 @@
 import { ADD_PHONE_TO_BASKET, REMOVE_PHONE_FROM_BASKET, CLEAN_BASKET, CHANGE_QUALITY } from "../constants";
-import { find, concat, repeat, append, without, of, assoc } from 'ramda'
+import { replace, repeat, append, without, of } from 'ramda'
 
 
 const initialState = []
@@ -12,11 +12,13 @@ export default (state = initialState, { type, payload }) => {
 
     case CHANGE_QUALITY:
 
-      const r = repeat(payload.id, payload.quantity)
-      const w = without(payload.id, state)
+      const currentQuantity = repeat(payload.id, payload.quantity).join(' ')
 
-      //No Jump
-      return w[0] === state[0] ? concat(w, r) : concat(r, w)
+      const fl = state.filter(value => value === payload.id).join(' ')
+
+      const rep = replace(fl, currentQuantity, state.join(' ')).split(' ')
+
+      return rep
 
     case REMOVE_PHONE_FROM_BASKET:
 
