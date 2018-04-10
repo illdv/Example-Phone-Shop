@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { removePhoneFromBasket, handleQuantityToBasket } from '../../AC'
+import { removePhoneFromBasket, addPhoneToBasket } from '../../AC'
 
 
 class ContentValue extends Component {
 
 
+  state = {
+    input: this.props.phone.count
+  }
 
   render() {
 
@@ -22,23 +25,32 @@ class ContentValue extends Component {
       <td className='col'>{phone.name}</td>
       <td className='col'>${phone.price}</td>
       <td className='col'>
-        <input onChange={this.handleInput(phone.id)} type='number' defaultValue={phone.count} />
+        <input onChange={this.handleInput(phone.id)} type='number' value={this.state.input} />
       </td>
       <td className='col'>
-        <span onClick={() => removePhoneFromBasket(phone.id)} className='btn btn-block badge-danger' />
+        <span onClick={() => removePhoneFromBasket(phone.id, 'all')} className='btn btn-block badge-danger' />
       </td>
     </tr>
 
   }
 
-  handleInput = id => e =>
-    this.props.handleQuantityToBasket(e.target.value, id)
+  handleInput = id => e => {
+    this.setState({
+      input: e.target.value
+    })
+    console.log('e', e.target.value);
+    console.log('state', this.state.input);
 
+    return e.target.value > +this.state.input ?
 
+      this.props.addPhoneToBasket(id) :
+
+      this.props.removePhoneFromBasket(id)
+  }
 }
 
 export default connect(
   null,
-  { removePhoneFromBasket, handleQuantityToBasket }
+  { removePhoneFromBasket, addPhoneToBasket }
 
 )(ContentValue)
