@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getBasketPhonesWithCount } from '../../helpers'
 import { isEmpty } from 'ramda'
@@ -7,33 +7,52 @@ import Sidebar from './Sidebar'
 import { Link } from 'react-router-dom'
 
 
-const Basket = ({ phones }) => {
+class Basket extends Component {
 
 
-  const isBasketEmpty = isEmpty(phones)
+  render() {
 
-  return <div className='container'>
-    <div className='row'>
-      <div className='col-md-9'>
-        {isBasketEmpty ?
-          <div>Your shopping cart is empty</div> :
-          <Content phones={phones} />}
-      </div>
-      <aside className='col-md=3 btn-user-checkout'>
-        <Link to='/phones' className='btn btn-info btn-block'>
-          Continue shopping
+
+
+
+    const phones = this.props.phones
+
+
+
+
+
+
+
+
+    const isBasketEmpty = isEmpty(phones)
+
+    return <div className='container'>
+      <div className='row'>
+        <div className='col-md-9'>
+          {isBasketEmpty ?
+            <div>Your shopping cart is empty</div> :
+            <Content phones={phones} />}
+        </div>
+        <aside className='col-md=3 btn-user-checkout'>
+          <Link to='/phones' className='btn btn-info btn-block'>
+            Continue shopping
     </Link>
-        {!isBasketEmpty && <Sidebar phones={phones} />}
-      </aside>
+          {!isBasketEmpty && <Sidebar phones={phones} />}
+        </aside>
+      </div>
     </div>
-  </div>
+  }
+
 }
 
 
 
 
 export default connect(
-  state => ({
-    phones: getBasketPhonesWithCount(state)
-  })
+  state => {
+
+    return {
+      phones: getBasketPhonesWithCount(state)
+    }
+  }
 )(Basket)

@@ -4,7 +4,7 @@ import { take } from 'ramda'
 import { addPhoneToBasket } from '../AC'
 import { connect } from 'react-redux'
 
-const Phone = ({ phone, addPhoneToBasket }) =>
+const Phone = ({ phone, addPhoneToBasket, addPhoneToLocalStorage }) =>
   <div className='col-sm-4 col-lg-4 col-md-4 book-list'>
     <div className='thumbnail'>
       <img
@@ -21,7 +21,7 @@ const Phone = ({ phone, addPhoneToBasket }) =>
         <p className='itemButton'>
           <button
             className='btn btn-primary'
-            onClick={() => addPhoneToBasket(phone.id)}
+            onClick={() => addPhoneToBasket(phone)}
           >
             Buy Now!
       </button>

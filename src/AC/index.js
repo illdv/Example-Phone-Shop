@@ -80,11 +80,12 @@ export const fetchPhoneById = name => dispatch => {
     )
 }
 
-export const addPhoneToBasket = id => dispatch => {
+export const addPhoneToBasket = phone => dispatch => {
+    console.log(phone);
 
     dispatch({
         type: ADD_PHONE_TO_BASKET,
-        payload: id
+        payload: phone
     })
 }
 export const handleQuantityToBasket = (quantity, id) => dispatch => {

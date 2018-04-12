@@ -8,7 +8,10 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
 
     case ADD_PHONE_TO_BASKET:
-      return append(payload, state)
+
+
+      return append(payload.id, state)
+
 
     case CHANGE_QUALITY:
 
@@ -21,7 +24,6 @@ export default (state = initialState, { type, payload }) => {
       return rep
 
     case REMOVE_PHONE_FROM_BASKET:
-
 
       return without(of(payload), state)
 

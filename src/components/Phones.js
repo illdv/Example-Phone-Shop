@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 import Sidebar from './Sidebar'
 
-
 import { fetchPhones, loadMorePhones, fetchCategories } from "../AC";
 
 import { getPhones } from '../helpers'
@@ -18,6 +17,7 @@ class Phones extends Component {
   render() {
 
     return <div className='view-container'>
+
       <div className='container'>
         <div className='row'>
           <aside className='col-md-3'>

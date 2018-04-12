@@ -6,7 +6,6 @@ import Phones from './components/Phones'
 import SelfPhone from './components/SelfPhone';
 import Basket from './components/Basket/index'
 
-
 class App extends Component {
 
     render() {
@@ -20,6 +19,7 @@ class App extends Component {
                 <Route path="/basket" component={Basket} />
 
             </Switch>
+
 
         )
     }
