@@ -17,7 +17,6 @@ class Phones extends Component {
   render() {
 
     return <div className='view-container'>
-
       <div className='container'>
         <div className='row'>
           <aside className='col-md-3'>

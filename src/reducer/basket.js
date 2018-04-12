@@ -13,6 +13,7 @@ export default (state = initialState, { type, payload }) => {
       return append(payload.id, state)
 
 
+
     case CHANGE_QUALITY:
 
       const currentQuantity = repeat(payload.id, payload.quantity).join(' ')

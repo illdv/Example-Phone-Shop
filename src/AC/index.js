@@ -81,7 +81,6 @@ export const fetchPhoneById = name => dispatch => {
 }
 
 export const addPhoneToBasket = phone => dispatch => {
-    console.log(phone);
 
     dispatch({
         type: ADD_PHONE_TO_BASKET,

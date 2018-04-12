@@ -1,16 +1,25 @@
 import { createStore, applyMiddleware } from 'redux'
-import { routerMiddleware } from 'react-router-redux'
 import reducer from '../reducer'
+import { save, load } from "redux-localstorage-simple"
+import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-
 import history from '../history'
 
-const enhancer = composeWithDevTools(applyMiddleware(thunk, routerMiddleware(history)))
 
-const store = createStore(reducer, enhancer)
 
-//dev only, no need in prod
+const createStoreWithMiddleware
+  = composeWithDevTools(applyMiddleware(
+    thunk,
+    routerMiddleware(history),
+    save({ states: ["basket", "phones"] })
+  ))(createStore)
+
+const store = createStoreWithMiddleware(
+  reducer,
+  load({ states: ["basket", "phones"] })
+)
+
 window.store = store
 
 export default store

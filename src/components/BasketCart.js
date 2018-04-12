@@ -15,6 +15,8 @@ class BasketCart extends Component {
 
 
 
+
+
     return <div className='cart'>
       <div className='dropdown'>
         <Link to='/basket' id='dLabel' className='btn btn-primary btn-block btn-lg'>
@@ -32,7 +34,6 @@ class BasketCart extends Component {
 
 export default connect(
   state => {
-
 
     return {
       totalBasketCount: state.basket.length,
