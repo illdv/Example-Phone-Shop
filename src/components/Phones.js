@@ -5,15 +5,30 @@ import Sidebar from './Sidebar'
 import { fetchPhones, loadMorePhones, fetchCategories } from "../AC";
 
 import { getPhones } from '../helpers'
-
 import Phone from './Phone'
+
+
 class Phones extends Component {
 
   componentDidMount() {
     this.props.fetchPhones()
     this.props.fetchCategories()
+    window.addEventListener('scroll', this.onScroll, false);
   }
 
+
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll, false);
+  }
+
+  onScroll = () => {
+    if (
+      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500)
+    ) {
+      this.props.loadMorePhones();
+    }
+  }
   render() {
 
     return <div className='view-container'>
@@ -29,11 +44,6 @@ class Phones extends Component {
             </div>
             <div className='row'>
               <div className='col-md-12'>
-                <button
-                  onClick={this.props.loadMorePhones}
-                  className='pull-right btn btn-primary'
-                >Load more
-          </button>
               </div>
             </div>
           </div>

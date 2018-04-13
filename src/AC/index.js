@@ -39,10 +39,16 @@ export const loadMorePhones = () => (dispatch, getState) => {
 
     dispatch({ type: LOAD_MORE_PHONES + START })
 
-    phones.then(body => dispatch({
-        type: LOAD_MORE_PHONES + SUCCESS,
-        payload: generateId(body.phones)
-    })
+    phones.then(body => {
+        console.log(body.phones.length = 3)
+        console.log(body.phones);
+
+
+        return dispatch({
+            type: LOAD_MORE_PHONES + SUCCESS,
+            payload: generateId(body.phones)
+        })
+    }
     )
         .catch(error => {
             dispatch({
