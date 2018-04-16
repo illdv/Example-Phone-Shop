@@ -6,17 +6,19 @@ import { fetchPhones, loadMorePhones, fetchCategories } from "../AC";
 
 import { getPhones } from '../helpers'
 import Phone from './Phone'
+import Loader from './Loader'
 
 
 class Phones extends Component {
 
   componentDidMount() {
-    this.props.fetchPhones()
-    this.props.fetchCategories()
-    window.addEventListener('scroll', this.onScroll, false);
+    const { loading, fetchPhones, fetchCategories } = this.props
+    if (loading) {
+      fetchPhones()
+      fetchCategories()
+      window.addEventListener('scroll', this.onScroll, false);
+    }
   }
-
-
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll, false);
@@ -24,12 +26,14 @@ class Phones extends Component {
 
   onScroll = () => {
     if (
-      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500)
+      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 1)
     ) {
       this.props.loadMorePhones();
     }
   }
   render() {
+    const { phones, loading } = this.props
+    if (loading) return <Loader />
 
     return <div className='view-container'>
       <div className='container'>
@@ -39,7 +43,7 @@ class Phones extends Component {
           </aside>
           <div className='col-md-9'>
             <div className="book row">
-              {this.props.phones.map(phone =>
+              {phones.map(phone =>
                 <Phone phone={phone} key={phone.id} />)}
             </div>
             <div className='row'>
@@ -56,7 +60,8 @@ class Phones extends Component {
 
 export default connect(
   (state, ownProps) => ({
-    phones: getPhones(state, ownProps)
+    phones: getPhones(state, ownProps),
+    loading: state.phones.loading
   }),
   { fetchPhones, loadMorePhones, fetchCategories }
 )(Phones)

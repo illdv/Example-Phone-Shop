@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-export const getPhoneById = (state, id) => R.prop(id, state.phones)
+export const getPhoneById = (state, id) => R.prop(id, state.phones.entities)
 
 
 export const getTotalBasketPrice = state => {
@@ -32,9 +32,13 @@ export const getBasketPhonesWithCount = state => {
   return phones
 }
 
-export const getActiveCategoryId = ownProps => R.path(['match', 'params', 'id'], ownProps)
+export const getActiveCategoryId = ownProps => {
+  return R.path(['match', 'params', 'id'], ownProps)
+}
 
 export const getPhones = (state, ownProps) => {
+
+
 
   const activeCategoryId = getActiveCategoryId(ownProps)
 

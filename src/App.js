@@ -6,10 +6,18 @@ import Phones from './components/Phones'
 import SelfPhone from './components/SelfPhone';
 import Basket from './components/Basket/index'
 
+
 class App extends Component {
 
+
+
+
     render() {
+
+
         return (
+
+
 
             <Switch>
                 <Redirect from="/" to="/phones" exact />
@@ -20,11 +28,17 @@ class App extends Component {
 
             </Switch>
 
-
         )
     }
-
-
 }
+
+
+
+
+
+
+
+
+
 
 export default App

@@ -12,12 +12,12 @@ const createStoreWithMiddleware
   = composeWithDevTools(applyMiddleware(
     thunk,
     routerMiddleware(history),
-    save({ states: ["basket", "phones"] })
+    save({ states: ["basket"] })
   ))(createStore)
 
 const store = createStoreWithMiddleware(
   reducer,
-  load({ states: ["basket", "phones"] })
+  load({ states: ["basket"] })
 )
 
 window.store = store

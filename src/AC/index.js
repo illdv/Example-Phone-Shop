@@ -5,7 +5,7 @@ import { replace } from 'react-router-redux'
 
 const generateId = phones => phones.map(phone => assoc('id', (Date.now() + Math.random()).toString(), phone))
 
-const phones = fetch('http://www.mocky.io/v2/5ac4d5522f00002a00f5fc29')
+const phones = fetch('http://www.mocky.io/v2/5ac4d5522f00002a00f5fc28')
     .then(response => response.json())
 
 
@@ -14,7 +14,7 @@ export const fetchPhones = () => dispatch => {
 
 
     dispatch({
-        type: FETCH_PHONES + START
+        type: FETCH_PHONES + START,
     })
 
     phones.then(body =>
@@ -34,15 +34,11 @@ export const fetchPhones = () => dispatch => {
 
 export const loadMorePhones = () => (dispatch, getState) => {
 
-    const offset = (getState().phonesPage.ids).length
-    console.log(offset);
+    // const offset = (getState().phonesPage.ids).length
 
     dispatch({ type: LOAD_MORE_PHONES + START })
 
     phones.then(body => {
-        console.log(body.phones.length = 3)
-        console.log(body.phones);
-
 
         return dispatch({
             type: LOAD_MORE_PHONES + SUCCESS,
@@ -60,7 +56,7 @@ export const loadMorePhones = () => (dispatch, getState) => {
 }
 
 
-export const fetchPhoneById = name => dispatch => {
+export const fetchPhoneByName = name => dispatch => {
 
     dispatch({
         type: FETCH_PHONES_BY_ID + START
@@ -70,7 +66,7 @@ export const fetchPhoneById = name => dispatch => {
 
         dispatch({
             type: FETCH_PHONES_BY_ID + SUCCESS,
-            payload: find(propEq('name', name))(generateId(body.phones))
+            payload: find(propEq('name', name))(body.phones)
         })
     }
 

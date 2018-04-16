@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchPhoneById, addPhoneToBasket } from '../AC'
+import { fetchPhoneByName, addPhoneToBasket } from '../AC'
 import { compose, pick, toPairs } from 'ramda'
 import BasketCart from './BasketCart'
 import { Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { getPhoneById } from '../helpers'
 class SelfPhone extends Component {
 
   componentDidMount() {
-    this.props.fetchPhoneById((this.props.match.params.name))
+    this.props.fetchPhoneByName(this.props.match.params.name)
   }
 
   render() {
@@ -98,5 +98,5 @@ export default connect(
   state => ({
     phone: getPhoneById(state, state.phonePage.id)
   }),
-  { fetchPhoneById, addPhoneToBasket }
+  { fetchPhoneByName, addPhoneToBasket }
 )(SelfPhone)
