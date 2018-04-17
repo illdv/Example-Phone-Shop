@@ -1,19 +1,18 @@
 import { FETCH_PHONES, LOAD_MORE_PHONES, FETCH_PHONES_BY_NAME, START, SUCCESS, FAIL, ADD_PHONE_TO_BASKET, SEARCH_PHONE, FETCH_CATEGORIES, REMOVE_PHONE_FROM_BASKET, CLEAN_BASKET, CHANGE_QUALITY } from "../constants";
 import { find, propEq, assoc } from 'ramda'
 import { replace } from 'react-router-redux'
+import { generateId } from '../helpers'
 
 
-const generateId = phones => phones.map(phone => assoc('id', (Date.now() + Math.random()).toString(), phone))
 
 const phones = fetch('http://www.mocky.io/v2/5ac4d5522f00002a00f5fc29')
     .then(response => response.json())
 
 
-
 export const fetchPhones = () => dispatch => {
 
     dispatch({
-        type: FETCH_PHONES + START
+        type: FETCH_PHONES + START,
     })
 
     phones.then(body =>
@@ -115,19 +114,7 @@ export const handleQuantityToBasket = (quantity, id) => dispatch => {
     })
 }
 
-export const removePhoneFromBasket = id => dispatch => {
-    dispatch({
-        type: REMOVE_PHONE_FROM_BASKET,
-        payload: id
-    })
-}
 
-export const searchPhone = text => dispatch => {
-    dispatch({
-        type: SEARCH_PHONE,
-        payload: text
-    })
-}
 
 export const cleanBasket = () => dispatch => {
     dispatch({

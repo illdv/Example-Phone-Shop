@@ -9,8 +9,15 @@ import Error from './components/Error'
 
 class App extends Component {
 
+
+
+
     render() {
+
+
         return (
+
+
 
             <Switch>
                 <Redirect from="/" to="/phones" exact />
@@ -21,11 +28,17 @@ class App extends Component {
                 <Route path="/error" component={Error} />
             </Switch>
 
-
         )
     }
-
-
 }
+
+
+
+
+
+
+
+
+
 
 export default App

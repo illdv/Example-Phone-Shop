@@ -11,12 +11,13 @@ import { isEmpty } from 'ramda'
 class Phones extends Component {
 
   componentDidMount() {
-    this.props.fetchPhones()
-    this.props.fetchCategories()
-    window.addEventListener('scroll', this.onScroll, false);
+    const { loading, fetchPhones, fetchCategories } = this.props
+    if (loading) {
+      fetchPhones()
+      fetchCategories()
+      window.addEventListener('scroll', this.onScroll, false);
+    }
   }
-
-
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll, false);
@@ -59,7 +60,8 @@ class Phones extends Component {
 
 export default connect(
   (state, ownProps) => ({
-    phones: getPhones(state, ownProps)
+    phones: getPhones(state, ownProps),
+    loading: state.phones.loading
   }),
   { fetchPhones, loadMorePhones, fetchCategories }
 )(Phones)
