@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import Sidebar from './Sidebar'
-
+import Loader from './Loader'
 import { fetchPhones, loadMorePhones, fetchCategories } from "../AC";
 
 import { getPhones } from '../helpers'
 import Phone from './Phone'
-
+import { isEmpty } from 'ramda'
 
 class Phones extends Component {
 
@@ -24,12 +24,15 @@ class Phones extends Component {
 
   onScroll = () => {
     if (
-      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500)
+      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 1)
     ) {
+
+
       this.props.loadMorePhones();
     }
   }
   render() {
+    if (isEmpty(this.props.phones)) return <Loader />
 
     return <div className='view-container'>
       <div className='container'>

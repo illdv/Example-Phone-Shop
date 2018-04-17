@@ -36,6 +36,7 @@ export const getActiveCategoryId = ownProps => R.path(['match', 'params', 'id'],
 
 export const getPhones = (state, ownProps) => {
 
+
   const activeCategoryId = getActiveCategoryId(ownProps)
 
   const applySearch = item => R.contains(

@@ -1,4 +1,4 @@
-import { FETCH_PHONES_BY_ID, SUCCESS } from '../constants';
+import { FETCH_PHONES_BY_NAME, SUCCESS } from '../constants';
 import { merge, prop } from 'ramda'
 
 const initialState = {
@@ -11,7 +11,7 @@ export default (state = initialState, { type, payload }) => {
 
 
 
-    case FETCH_PHONES_BY_ID + SUCCESS:
+    case FETCH_PHONES_BY_NAME + SUCCESS:
 
       return merge(state, {
         id: prop('id', payload)
