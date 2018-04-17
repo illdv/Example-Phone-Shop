@@ -29,7 +29,7 @@ const Phone = ({ phone, addPhoneToBasket, addPhoneToLocalStorage }) =>
             to={`/phones/${phone.name}`}
             className='btn btn-default'
           >
-            More info
+            More info!
       </Link>
         </p>
       </div>
