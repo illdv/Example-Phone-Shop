@@ -1,5 +1,7 @@
 import * as R from 'ramda'
 
+export const generateId = phones => phones.map(phone => R.assoc('id', (Date.now() + Math.random()).toString(), phone))
+
 export const getPhoneById = (state, id) => R.prop(id, state.phones.entities)
 
 

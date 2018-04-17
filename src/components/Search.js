@@ -12,12 +12,9 @@ class Search extends Component {
   render() {
 
     return (
-      <div className='well'>
-        <h3 className='lead'>Quick shop</h3>
-        <form onSubmit={this.handleSubmit} className='input-group'>
-          <input onChange={this.handleChange} type='text' className='form-control' placeholder='search' />
-        </form>
-      </div>
+      <form onSubmit={this.handleSubmit} className='input-group'>
+        <input onChange={this.handleChange} type='text' className='form-control' placeholder='search' />
+      </form>
     )
   }
   handleChange = (e) => {
@@ -29,6 +26,9 @@ class Search extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1)
+    console.log(capitalize(this.state.value));
+
+
     this.props.searchPhone(capitalize(this.state.value))
   }
 }

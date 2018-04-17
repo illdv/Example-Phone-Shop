@@ -33,6 +33,7 @@ class Phones extends Component {
   }
   render() {
     const { phones, loading } = this.props
+
     if (loading) return <Loader />
 
     return <div className='view-container'>

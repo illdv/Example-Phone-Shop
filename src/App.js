@@ -5,6 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Phones from './components/Phones'
 import SelfPhone from './components/SelfPhone';
 import Basket from './components/Basket/index'
+import Error from './components/Error'
 
 
 class App extends Component {
@@ -25,7 +26,7 @@ class App extends Component {
                 <Route path='/categories/:id' component={Phones} />
                 <Route path="/phones" component={Phones} />
                 <Route path="/basket" component={Basket} />
-
+                <Route path="/error" component={Error} />
             </Switch>
 
         )

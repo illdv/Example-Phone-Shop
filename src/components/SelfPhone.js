@@ -9,6 +9,7 @@ import { getPhoneById } from '../helpers'
 class SelfPhone extends Component {
 
   componentDidMount() {
+
     this.props.fetchPhoneByName(this.props.match.params.name)
   }
 
