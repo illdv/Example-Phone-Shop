@@ -1,22 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import Sidebar from './Sidebar'
-import Loader from './Loader'
 import { fetchPhones, loadMorePhones, fetchCategories } from "../AC";
 
 import { getPhones } from '../helpers'
 import Phone from './Phone'
-import { isEmpty } from 'ramda'
 
 class Phones extends Component {
 
   componentDidMount() {
-    const { loading, fetchPhones, fetchCategories } = this.props
-    if (loading) {
-      fetchPhones()
-      fetchCategories()
-      window.addEventListener('scroll', this.onScroll, false);
-    }
+    this.props.fetchPhones()
+    this.props.fetchCategories()
+    window.addEventListener('scroll', this.onScroll, false);
   }
 
   componentWillUnmount() {
@@ -33,7 +28,6 @@ class Phones extends Component {
     }
   }
   render() {
-    if (isEmpty(this.props.phones)) return <Loader />
 
     return <div className='view-container'>
       <div className='container'>
