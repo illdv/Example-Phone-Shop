@@ -43,10 +43,25 @@ export const getPhones = (state, ownProps) => {
 
   const activeCategoryId = getActiveCategoryId(ownProps)
 
-  const applySearch = item => R.contains(
-    state.phonesPage.search,
-    R.prop('name', item)
-  )
+
+  let index = 0
+  const iterationArray = (searchArr) => {
+    if (index >= searchArr.length) {
+      index = 0
+    }
+    const result = searchArr ? searchArr[index] : ''
+    index += 1
+    return result
+  }
+
+  const applySearch = item =>
+    R.contains(
+      iterationArray(state.phonesPage.search),
+      R.prop('name', item)
+    )
+
+
+
   const applyCategory = item => R.equals(
     activeCategoryId,
     R.prop('categoryId', item)

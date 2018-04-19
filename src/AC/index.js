@@ -1,9 +1,9 @@
 import { FETCH_PHONES, LOAD_MORE_PHONES, FETCH_PHONES_BY_NAME, START, SUCCESS, FAIL, ADD_PHONE_TO_BASKET, SEARCH_PHONE, FETCH_CATEGORIES, REMOVE_PHONE_FROM_BASKET, CLEAN_BASKET, CHANGE_QUALITY } from "../constants";
-import { find, propEq, assoc } from 'ramda'
+import * as R from 'ramda'
 import { replace } from 'react-router-redux'
 
 
-const generateId = phones => phones.map(phone => assoc('id', (Date.now() + Math.random()).toString(), phone))
+const generateId = phones => phones.map(phone => R.assoc('id', (Date.now() + Math.random()).toString(), phone))
 
 const phones = fetch('http://www.mocky.io/v2/5ac4d5522f00002a00f5fc29')
     .then(response => response.json())
@@ -65,7 +65,7 @@ export const fetchPhoneByName = name => dispatch => {
 
         dispatch({
             type: FETCH_PHONES_BY_NAME + SUCCESS,
-            payload: find(propEq('name', name))(body.phones)
+            payload: R.find(R.propEq('name', name))(body.phones)
         })
     }
 
@@ -123,9 +123,36 @@ export const removePhoneFromBasket = id => dispatch => {
 }
 
 export const searchPhone = text => dispatch => {
+    // dispatch({
+    //     type: SEARCH_PHONE,
+    //     payload: text
+    // })
     dispatch({
-        type: SEARCH_PHONE,
-        payload: text
+        type: SEARCH_PHONE + START
+    })
+
+    phones.then(body => {
+        const applySearch = item => R.contains(
+            text,
+            R.prop('name', item)
+        )
+        const foundPhones = R.compose(
+            R.map(phone => phone.name),
+            R.filter(applySearch)
+        )(body.phones)
+
+        return dispatch({
+            type: SEARCH_PHONE + SUCCESS,
+            payload: foundPhones
+        })
+    }
+
+    ).catch(error => {
+        dispatch({
+            type: SEARCH_PHONE + FAIL,
+            payload: error
+        })
+        dispatch(replace('/error'))
     })
 }
 

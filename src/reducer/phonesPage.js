@@ -18,7 +18,11 @@ export default (state = initialState, { type, payload }) => {
       return R.merge(state, {
         ids: R.concat(state.ids, ids)
       })
-    case SEARCH_PHONE:
+
+
+
+    case SEARCH_PHONE + SUCCESS:
+
       return R.merge(state, { search: payload })
     default: return state
   }
