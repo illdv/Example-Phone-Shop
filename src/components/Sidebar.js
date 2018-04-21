@@ -6,11 +6,11 @@ import Categories from './Categories'
 
 
 const Sidebar = () => (
-  <div>
+  <aside className='col-md-3'>
     <BasketCart />
     <Search />
     <Categories />
-  </div>
+  </aside>
 )
 
 

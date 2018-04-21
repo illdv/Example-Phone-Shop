@@ -7,37 +7,52 @@ import { propEq, isNil } from 'ramda'
 import { getActiveCategoryId } from '../helpers'
 import classNames from 'classnames'
 
+import { List, ListItem } from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
+
+
 const Categories = ({ categories, activeCategoryId }) => {
+
+
+
   return (
-    <div className='well'>
-      <h4>Brand</h4>
-      <ul className='list-group list-unstyled'>
-        <li>
-          <Link to='/phones' className={classNames({
-            'list-group-item': true,
-            'active': isNil(activeCategoryId),
-          })}>
-            All
-          </Link>
-        </li>
-        {categories.map(category => {
-          const getActiveState = propEq('id', activeCategoryId)
 
 
-          return (
-            <li key={category.name}  >
-              <Link to={`/categories/${category.id}`} className={classNames({
-                'list-group-item': true,
-                'active': getActiveState(category),
-              })}>
-                {category.name}
-              </Link>
-            </li>
-          )
+
+    <List>
+      <Subheader style={{ fontSize: 20 }}>Brands</Subheader>
+      <ListItem
+        containerElement={
+          <Link to='/phones' />
         }
-        )}
-      </ul>
-    </div>
+        primaryText='All'
+      >
+      </ListItem>
+      <Divider />
+      {categories.map(category =>
+        <React.Fragment key={category.name}>
+          <ListItem
+
+            primaryText={category.name}
+            containerElement={
+              <Link to={`/categories/${category.id}`} />
+            }
+          >
+
+          </ListItem>
+          <Divider />
+        </React.Fragment >
+
+      )}
+
+
+
+
+
+
+    </List>
+
   )
 }
 

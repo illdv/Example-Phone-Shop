@@ -1,44 +1,34 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getTotalBasketPrice } from '../helpers'
 
-
-class BasketCart extends Component {
-
-
+import RaisedButton from 'material-ui/RaisedButton'
+import ShoppingCart from 'material-ui/svg-icons/action/shopping-cart'
 
 
+const BasketCart = ({ totalBasketCount, totalPrice }) => {
 
-  render() {
-    const { totalBasketCount, totalPrice } = this.props
-
-
-
-
-
-    return <div className='cart'>
-      <div className='dropdown'>
-        <Link to='/basket' id='dLabel' className='btn btn-primary btn-block btn-lg'>
-          <i className='fa fa-fa-shopping-cart' />
-          <span>{`${totalBasketCount} item(s) - $${totalPrice}`}</span>
-        </Link>
-      </div>
-    </div >
-  }
+  return <RaisedButton
+    label={`${totalBasketCount} ${totalBasketCount > 1 ? 'phones' : 'phone'} - $${totalPrice}`}
+    labelPosition="before"
+    primary={true}
+    icon={<ShoppingCart />}
+    fullWidth={true}
+    containerElement={<Link to='/basket' />}
+  />
 
 }
 
 
 
 
+
+
+
 export default connect(
-  state => {
-
-    return {
-      totalBasketCount: state.basket.length,
-      totalPrice: getTotalBasketPrice(state)
-
-    }
-  }
+  state => ({
+    totalBasketCount: state.basket.length,
+    totalPrice: getTotalBasketPrice(state)
+  })
 )(BasketCart)

@@ -6,6 +6,9 @@ import { fetchPhones, loadMorePhones, fetchCategories } from "../AC";
 import { getPhones } from '../helpers'
 import Phone from './Phone'
 
+
+
+
 class Phones extends Component {
 
   componentDidMount() {
@@ -29,14 +32,13 @@ class Phones extends Component {
   }
   render() {
 
-    return <div className='view-container'>
+    return (
+
       <div className='container'>
         <div className='row'>
-          <aside className='col-md-3'>
-            <Sidebar />
-          </aside>
+          <Sidebar />
           <div className='col-md-9'>
-            <div className="book row">
+            <div className="row">
               {this.props.phones.map(phone =>
                 <Phone phone={phone} key={phone.id} />)}
             </div>
@@ -47,7 +49,8 @@ class Phones extends Component {
           </div>
         </div>
       </div>
-    </div>
+
+    )
   }
 }
 

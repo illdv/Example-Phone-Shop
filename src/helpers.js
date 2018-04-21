@@ -18,7 +18,6 @@ export const getTotalBasketPrice = state => {
 export const getBasketPhonesWithCount = state => {
   const uniqIds = R.uniq(state.basket)
 
-
   const phoneCount = id => R.compose(
     R.length,
     R.filter(basketId => R.equals(id, basketId))
@@ -34,9 +33,9 @@ export const getBasketPhonesWithCount = state => {
   return phones
 }
 
-export const getActiveCategoryId = ownProps => {
-  return R.path(['match', 'params', 'id'], ownProps)
-}
+export const getActiveCategoryId = ownProps =>
+  R.path(['match', 'params', 'id'], ownProps)
+
 
 export const getPhones = (state, ownProps) => {
 

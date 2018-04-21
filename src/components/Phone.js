@@ -4,6 +4,12 @@ import { take } from 'ramda'
 import { addPhoneToBasket } from '../AC'
 import { connect } from 'react-redux'
 
+
+import AddShoppingCart from 'material-ui/icons';
+import InfoOutline from 'material-ui/svg-icons/action/info-outline'
+import Button from 'material-ui/Button';
+
+
 const Phone = ({ phone, addPhoneToBasket, addPhoneToLocalStorage }) =>
   <div className='col-sm-4 col-lg-4 col-md-4 book-list'>
     <div className='thumbnail'>
@@ -18,20 +24,28 @@ const Phone = ({ phone, addPhoneToBasket, addPhoneToLocalStorage }) =>
           {phone.name}
         </h5>
         <p>{take(60, phone.description)}...</p>
-        <p className='itemButton'>
-          <button
-            className='btn btn-primary'
-            onClick={() => addPhoneToBasket(phone)}
-          >
-            Buy Now!
-      </button>
-          <Link
-            to={`/phones/${phone.name}`}
-            className='btn btn-default'
-          >
-            More info!
-      </Link>
-        </p>
+
+        <RaisedButton
+          label="Buy Now!"
+          labelPosition="after"
+          primary={true}
+          icon={<AddShoppingCart />}
+          onClick={() => addPhoneToBasket(phone)}
+
+        />
+
+
+        <FlatButton
+          containerElement={<Link
+            to={`/phones/${phone.name}`} />}
+          label="More info"
+          labelPosition="before"
+          secondary={true}
+          disableTouchRipple={true}
+          icon={<InfoOutline />}
+        />
+
+
       </div>
     </div>
   </div>

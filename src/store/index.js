@@ -8,16 +8,17 @@ import history from '../history'
 
 
 
+
 const createStoreWithMiddleware
   = composeWithDevTools(applyMiddleware(
     thunk,
     routerMiddleware(history),
-    save({ states: ["basket"] })
+    save({ states: ["basket", 'phones'] })
   ))(createStore)
 
 const store = createStoreWithMiddleware(
   reducer,
-  load({ states: ["basket"] })
+  load({ states: ["basket", 'phones'] })
 )
 
 window.store = store

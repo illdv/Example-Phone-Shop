@@ -6,10 +6,14 @@ import App from './App'
 import store from './store'
 import history from './history'
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 ReactDOM.render(
-    <Provider store={store}>
-        <ConnectedRouter history={history}>
-            <App />
-        </ConnectedRouter>
-    </Provider>
+    <MuiThemeProvider>
+        <Provider store={store}>
+            <ConnectedRouter history={history}>
+                <App />
+            </ConnectedRouter>
+        </Provider>
+    </MuiThemeProvider>
     , document.getElementById('root'))

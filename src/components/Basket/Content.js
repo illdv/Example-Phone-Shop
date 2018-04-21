@@ -1,15 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { getTotalBasketPrice } from '../../helpers'
 import ContentValue from './ContentValue'
+import { isEmpty } from 'ramda'
 
+const Content = ({ phones, totalPrice }) => {
 
-class Content extends Component {
-
-
-  render() {
-    const { phones, totalPrice } = this.props
-    return <div className='table-responsive'>
+  const getBody = () => (
+    <div className='table-responsive'>
 
       <table className='table-bordered table-condensed'>
         <tbody>
@@ -24,10 +22,17 @@ class Content extends Component {
           </tr>
         </tbody>
       </table>
-    </div>
-  }
+    </div>)
 
+  return <div className='col-md-9'>
+
+    {isEmpty(phones) ?
+      <div>Your shopping cart is empty</div> :
+      getBody()
+    }
+  </div>
 }
+
 export default connect(state => ({
   totalPrice: getTotalBasketPrice(state)
 }))(Content)

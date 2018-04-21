@@ -16,9 +16,6 @@ class App extends Component {
 
 
         return (
-
-
-
             <Switch>
                 <Redirect from="/" to="/phones" exact />
                 <Route path='/phones/:name' component={SelfPhone} />
@@ -31,14 +28,4 @@ class App extends Component {
         )
     }
 }
-
-
-
-
-
-
-
-
-
-
 export default App

@@ -123,10 +123,6 @@ export const removePhoneFromBasket = id => dispatch => {
 }
 
 export const searchPhone = text => dispatch => {
-    // dispatch({
-    //     type: SEARCH_PHONE,
-    //     payload: text
-    // })
     dispatch({
         type: SEARCH_PHONE + START
     })
