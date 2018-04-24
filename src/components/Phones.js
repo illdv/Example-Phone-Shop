@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import Sidebar from './Sidebar'
+
+import { compose } from 'redux'
+import { withRouter } from 'react-router-dom'
 import { fetchPhones, loadMorePhones, fetchCategories } from "../AC";
 
 import { getPhones } from '../helpers'
 import Phone from './Phone'
-
+import { Grid } from 'material-ui'
 
 
 
@@ -32,33 +34,27 @@ class Phones extends Component {
   }
   render() {
 
-    return (
 
-      <div className='container'>
-        <div className='row'>
-          <Sidebar />
-          <div className='col-md-9'>
-            <div className="row">
-              {this.props.phones.map(phone =>
-                <Phone phone={phone} key={phone.id} />)}
-            </div>
-            <div className='row'>
-              <div className='col-md-12'>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    return (
+      <Grid item sm={9} container spacing={16}>
+
+        {this.props.phones.map(phone =>
+          <Phone phone={phone} key={phone.id} />)}
+
+      </Grid>
+
 
     )
   }
 }
 
 
-export default connect(
-  (state, ownProps) => ({
-    phones: getPhones(state, ownProps),
-    loading: state.phones.loading
-  }),
-  { fetchPhones, loadMorePhones, fetchCategories }
-)(Phones)
+export default compose(
+  withRouter,
+  connect(
+    (state, ownProps) => ({
+      phones: getPhones(state, ownProps),
+    }),
+    { fetchPhones, loadMorePhones, fetchCategories }
+  ))(Phones)
+

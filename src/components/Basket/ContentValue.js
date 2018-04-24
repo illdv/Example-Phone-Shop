@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { removePhoneFromBasket, handleQuantityToBasket } from '../../AC'
 
-import FlatButton from 'material-ui/FlatButton'
-import Remove from 'material-ui/svg-icons/content/remove-circle-outline'
+import Tooltip from 'material-ui/Tooltip';
+
+import Button from 'material-ui/Button'
+import Delete from '@material-ui/icons/Delete'
+
 
 class ContentValue extends Component {
 
@@ -30,16 +33,14 @@ class ContentValue extends Component {
 
 
 
-        <FlatButton label="delete"
-          secondary={true}
-          labelPosition='before'
-          fullWidth={true}
-          icon={<Remove />}
-          onClick={() => removePhoneFromBasket(phone.id)}
-        />
 
-
-
+        <Tooltip id="tooltip-icon" title="Delete phone">
+          <Button variant='fab' color="secondary"
+            onClick={() => removePhoneFromBasket(phone.id)}
+          >
+            <Delete />
+          </Button>
+        </Tooltip>
       </td>
     </tr>
 

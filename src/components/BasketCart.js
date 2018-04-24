@@ -3,20 +3,21 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getTotalBasketPrice } from '../helpers'
 
-import RaisedButton from 'material-ui/RaisedButton'
-import ShoppingCart from 'material-ui/svg-icons/action/shopping-cart'
+import Button from 'material-ui/Button'
+import ShoppingCart from '@material-ui/icons/ShoppingCart'
 
 
 const BasketCart = ({ totalBasketCount, totalPrice }) => {
 
-  return <RaisedButton
-    label={`${totalBasketCount} ${totalBasketCount > 1 ? 'phones' : 'phone'} - $${totalPrice}`}
-    labelPosition="before"
-    primary={true}
-    icon={<ShoppingCart />}
+  return <Button
+    variant='raised'
     fullWidth={true}
-    containerElement={<Link to='/basket' />}
-  />
+    color='primary'
+    component={Link} to='/basket'
+  >
+    <ShoppingCart />
+    {`${totalBasketCount} ${totalBasketCount > 1 ? 'phones' : 'phone'} - $${totalPrice}`}
+  </Button>
 
 }
 

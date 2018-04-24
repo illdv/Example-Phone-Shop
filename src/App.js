@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 
-import { Route, Switch, Redirect } from 'react-router-dom'
-import Phones from './components/Phones'
-import SelfPhone from './components/SelfPhone';
-import Basket from './components/Basket'
-import Error from './components/Error'
+
+import Routes from './Routes'
+import Header from './components/Header'
 
 class App extends Component {
 
@@ -16,14 +14,11 @@ class App extends Component {
 
 
         return (
-            <Switch>
-                <Redirect from="/" to="/phones" exact />
-                <Route path='/phones/:name' component={SelfPhone} />
-                <Route path='/categories/:id' component={Phones} />
-                <Route path="/phones" component={Phones} />
-                <Route path="/basket" component={Basket} />
-                <Route path="/error" component={Error} />
-            </Switch>
+            <div>
+                <Header />
+                <Routes />
+
+            </div>
 
         )
     }

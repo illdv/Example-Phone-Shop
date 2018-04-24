@@ -40,7 +40,7 @@ export const getActiveCategoryId = ownProps =>
 export const getPhones = (state, ownProps) => {
 
 
-  const activeCategoryId = getActiveCategoryId(ownProps)
+
 
 
   let index = 0
@@ -59,8 +59,7 @@ export const getPhones = (state, ownProps) => {
       R.prop('name', item)
     )
 
-
-
+  const activeCategoryId = getActiveCategoryId(ownProps)
   const applyCategory = item => R.equals(
     activeCategoryId,
     R.prop('categoryId', item)
@@ -71,6 +70,7 @@ export const getPhones = (state, ownProps) => {
     R.when(R.always(activeCategoryId), R.filter(applyCategory)),
     R.map(id => getPhoneById(state, id))
   )(state.phonesPage.ids)
+
 
   return phones
 }

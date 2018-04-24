@@ -33,11 +33,12 @@ export const fetchPhones = () => dispatch => {
 
 export const loadMorePhones = () => (dispatch, getState) => {
 
-    // const offset = (getState().phonesPage.ids).length
+    const offset = (getState().phonesPage.ids).length
+
 
     dispatch({ type: LOAD_MORE_PHONES + START })
 
-    phones.then(body => {
+    offset !== 12 && phones.then(body => {
 
         return dispatch({
             type: LOAD_MORE_PHONES + SUCCESS,

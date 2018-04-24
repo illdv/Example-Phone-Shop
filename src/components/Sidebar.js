@@ -1,16 +1,22 @@
 import React from 'react'
 
+import { Grid } from 'material-ui'
+
 import BasketCart from './BasketCart'
 import Search from './Search'
 import Categories from './Categories'
 
 
 const Sidebar = () => (
-  <aside className='col-md-3'>
+
+  <Grid item sm={3}>
+
     <BasketCart />
     <Search />
     <Categories />
-  </aside>
+
+  </Grid>
+
 )
 
 

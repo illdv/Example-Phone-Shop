@@ -5,50 +5,54 @@ import { addPhoneToBasket } from '../AC'
 import { connect } from 'react-redux'
 
 
-import AddShoppingCart from 'material-ui/icons';
-import InfoOutline from 'material-ui/svg-icons/action/info-outline'
+
+import InfoOutline from '@material-ui/icons/InfoOutline'
 import Button from 'material-ui/Button';
+import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
+
+import { Grid } from 'material-ui'
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+
+const Phone = ({ phone, addPhoneToBasket }) => {
 
 
-const Phone = ({ phone, addPhoneToBasket, addPhoneToLocalStorage }) =>
-  <div className='col-sm-4 col-lg-4 col-md-4 book-list'>
-    <div className='thumbnail'>
-      <img
-        className='img-thumbnail'
-        src={phone.image}
-        alt={phone.name}
+  return <Grid item >
+    <Card style={{ width: 300 }}>
+      <CardMedia style={{ height: 300 }}
+
+        image={phone.image}
+        title={phone.name}
       />
-      <div className='caption'>
-        <h4 className='pull-right'>${phone.price}</h4>
+      <CardContent>
+        <h4>${phone.price}</h4>
         <h5>
           {phone.name}
         </h5>
         <p>{take(60, phone.description)}...</p>
-
-        <RaisedButton
-          label="Buy Now!"
-          labelPosition="after"
-          primary={true}
-          icon={<AddShoppingCart />}
-          onClick={() => addPhoneToBasket(phone)}
-
-        />
-
-
-        <FlatButton
-          containerElement={<Link
-            to={`/phones/${phone.name}`} />}
-          label="More info"
-          labelPosition="before"
-          secondary={true}
-          disableTouchRipple={true}
-          icon={<InfoOutline />}
-        />
+      </CardContent>
+      <CardActions>
+        <Button
+          variant="raised"
+          color="secondary"
+          onClick={() => addPhoneToBasket(phone)}>
+          <AddShoppingCart />
+          Buy Now
+        </Button>
 
 
-      </div>
-    </div>
-  </div>
+        <Button
+          variant="flat"
+          color="default"
+          component={Link} to={`/phones/${phone.name}`}
+        >
+          <InfoOutline />
+          more info
+        </Button>
+      </CardActions>
+
+    </Card>
+  </Grid>
+}
 
 
 
