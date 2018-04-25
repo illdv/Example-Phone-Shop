@@ -39,10 +39,6 @@ export const getActiveCategoryId = ownProps =>
 
 export const getPhones = (state, ownProps) => {
 
-
-
-
-
   let index = 0
   const iterationArray = (searchArr) => {
     if (index >= searchArr.length) {

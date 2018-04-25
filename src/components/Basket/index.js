@@ -5,14 +5,16 @@ import Content from './Content'
 import Sidebar from './Sidebar'
 
 
-const Basket = ({ phones }) => (
-  <div className='container'>
+const Basket = ({ phones }) => {
+  console.log(phones);
+
+  return <div className='container'>
     <div className='row'>
       <Content phones={phones} />
       <Sidebar phones={phones} />
     </div>
   </div >
-)
+}
 
 export default connect(
   state => ({

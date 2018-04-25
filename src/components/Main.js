@@ -10,7 +10,7 @@ import { Grid } from 'material-ui'
 
 
 export default props =>
-  <Grid container spacing={24}>
+  <Grid container spacing={24} style={{ justifyContent: 'center' }}>
     <Sidebar />
     <Phones />
   </Grid>

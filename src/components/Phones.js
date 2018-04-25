@@ -34,14 +34,18 @@ class Phones extends Component {
   }
   render() {
 
-
+    console.log(Object.keys(JSON.parse(localStorage.redux_localstorage_simple_phones)).length)
     return (
-      <Grid item sm={9} container spacing={16}>
-
-        {this.props.phones.map(phone =>
-          <Phone phone={phone} key={phone.id} />)}
-
+      <Grid item xs={6} >
+        <Grid container spacing={16}>
+          {this.props.phones.map(phone =>
+            <Grid item sm={4} xs={2} key={phone.id}>
+              <Phone phone={phone} />
+            </Grid>
+          )}
+        </Grid>
       </Grid>
+
 
 
     )

@@ -5,9 +5,9 @@ import { replace } from 'react-router-redux'
 
 const generateId = phones => phones.map(phone => R.assoc('id', (Date.now() + Math.random()).toString(), phone))
 
-const phones = fetch('http://www.mocky.io/v2/5ac4d5522f00002a00f5fc29')
-    .then(response => response.json())
 
+const phones = fetch('http://www.mocky.io/v2/5ae089823200007600510c5b')
+    .then(response => response.json())
 
 
 export const fetchPhones = () => dispatch => {

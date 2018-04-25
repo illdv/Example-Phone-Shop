@@ -5,6 +5,8 @@ import { replace, repeat, append, without, of } from 'ramda'
 const initialState = []
 
 export default (state = initialState, { type, payload }) => {
+
+
   switch (type) {
 
     case ADD_PHONE_TO_BASKET:
@@ -15,6 +17,10 @@ export default (state = initialState, { type, payload }) => {
 
 
     case CHANGE_QUALITY:
+      if (payload.quantity === '0') {
+        return without(of(payload.id), state)
+      }
+
 
       const currentQuantity = repeat(payload.id, payload.quantity).join(' ')
 
@@ -33,4 +39,5 @@ export default (state = initialState, { type, payload }) => {
 
     default: return state
   }
+
 }

@@ -7,6 +7,10 @@ import Tooltip from 'material-ui/Tooltip';
 import Button from 'material-ui/Button'
 import Delete from '@material-ui/icons/Delete'
 
+import { TableCell, TableRow } from 'material-ui/Table';
+import TextField from 'material-ui/TextField';
+
+
 
 class ContentValue extends Component {
 
@@ -15,52 +19,60 @@ class ContentValue extends Component {
   }
 
   render() {
-    const { phone, removePhoneFromBasket } = this.props
+    const { phone, removePhoneFromBasket, lengthBasket } = this.props
 
-    return <tr
+    return (
+      <TableRow>
+        <TableCell>
+          <img style={{ maxWidth: '100%' }} src={phone.image} alt={phone.name} />
+        </TableCell>
 
-      className='row'
-    >
-      <td className='col'>
-        <img className='img-thumbnail' src={phone.image} alt={phone.name} />
-      </td>
-      <td className='col'>{phone.name}</td>
-      <td className='col'>${phone.price}</td>
-      <td className='col'>
-        <input onChange={this.handleInput(phone.id)} type='number' value={this.state.input} />
-      </td>
-      <td className='col'>
+        <TableCell>{phone.name}</TableCell>
+        <TableCell>${phone.price}</TableCell>
+        <TableCell>
+          <TextField style={{ width: 100 }}
+            id="quantity"
+            type="number"
+            value={this.state.input}
+            onChange={this.handleInput(phone.id)}
+            onBlur={(e) =>
+              !e.target.value && this.setState({
+                input: lengthBasket
+              })
+            }
+          />
+        </TableCell>
+        <TableCell>
+          <Tooltip id="tooltip-icon" title="Delete phone">
+            <Button variant='fab' color="secondary"
+              onClick={() => removePhoneFromBasket(phone.id)}
+            >
+              <Delete />
+            </Button>
+          </Tooltip>
+        </TableCell>
 
-
-
-
-        <Tooltip id="tooltip-icon" title="Delete phone">
-          <Button variant='fab' color="secondary"
-            onClick={() => removePhoneFromBasket(phone.id)}
-          >
-            <Delete />
-          </Button>
-        </Tooltip>
-      </td>
-    </tr>
-
+      </TableRow>
+    )
   }
 
   handleInput = id => e => {
     const event = e.target.value
     this.setState(() => {
-      return event >= 1 ?
+      return event >= 0 ?
         { input: event } :
-        { input: 1 }
+        { input: 0 }
     })
-    event >= 1 &&
-      this.props.handleQuantityToBasket(e.target.value, id)
+
+    event && this.props.handleQuantityToBasket(e.target.value, id)
   }
 
 }
 
 export default connect(
-  null,
+  state => ({
+    lengthBasket: state.basket.length
+  }),
   { removePhoneFromBasket, handleQuantityToBasket }
 
 )(ContentValue)

@@ -9,7 +9,7 @@ import Categories from './Categories'
 
 const Sidebar = () => (
 
-  <Grid item sm={3}>
+  <Grid item sm={2}>
 
     <BasketCart />
     <Search />
