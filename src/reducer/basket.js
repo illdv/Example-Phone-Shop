@@ -18,7 +18,7 @@ export default (state = initialState, { type, payload }) => {
 
 
     case CHANGE_QUALITY:
-      console.log(payload);
+
 
       if (payload.quantity === '0') {
 
@@ -28,19 +28,21 @@ export default (state = initialState, { type, payload }) => {
       const currentQuantity = R.repeat(payload.phone, payload.quantity)
 
 
-      const fl = state.filter(value => value.id !== payload.phone.id)
+
+      const fl = state.filter(value => value.id === payload.phone.id)
 
 
 
 
-      const index = R.findIndex(R.propEq('id', payload.phone.id))
+      const copy = state.splice('')
+      const index = R.findIndex(R.propEq('id', payload.phone.id))(state)
+
+      copy.splice(index, currentQuantity.length, ...currentQuantity)
 
 
-      const copy = state.slice()
-      const sp = copy.splice(index, currentQuantity.length, ...currentQuantity)
 
 
-      return state
+      return copy
 
     case REMOVE_PHONE_FROM_BASKET:
 
