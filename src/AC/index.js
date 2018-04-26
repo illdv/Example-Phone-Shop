@@ -102,17 +102,16 @@ export const fetchCategories = () => dispatch => {
 }
 
 export const addPhoneToBasket = phone => dispatch => {
-
     dispatch({
         type: ADD_PHONE_TO_BASKET,
         payload: phone
     })
 }
-export const handleQuantityToBasket = (quantity, id) => dispatch => {
+export const handleQuantityToBasket = (quantity, phone) => dispatch => {
 
     dispatch({
         type: CHANGE_QUALITY,
-        payload: { quantity, id }
+        payload: { quantity, phone }
     })
 }
 

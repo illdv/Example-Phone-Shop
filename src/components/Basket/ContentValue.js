@@ -34,7 +34,7 @@ class ContentValue extends Component {
             id="quantity"
             type="number"
             value={this.state.input}
-            onChange={this.handleInput(phone.id)}
+            onChange={this.handleInput(phone)}
             onBlur={(e) =>
               !e.target.value && this.setState({
                 input: lengthBasket
@@ -56,7 +56,7 @@ class ContentValue extends Component {
     )
   }
 
-  handleInput = id => e => {
+  handleInput = phone => e => {
     const event = e.target.value
     this.setState(() => {
       return event >= 0 ?
@@ -64,7 +64,7 @@ class ContentValue extends Component {
         { input: 0 }
     })
 
-    event && this.props.handleQuantityToBasket(e.target.value, id)
+    event && this.props.handleQuantityToBasket(event, phone)
   }
 
 }

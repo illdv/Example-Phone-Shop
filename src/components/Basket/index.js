@@ -8,6 +8,7 @@ import Sidebar from './Sidebar'
 const Basket = ({ phones }) => {
   console.log(phones);
 
+
   return <div className='container'>
     <div className='row'>
       <Content phones={phones} />

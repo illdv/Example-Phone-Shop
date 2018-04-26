@@ -34,7 +34,8 @@ class Phones extends Component {
   }
   render() {
 
-    console.log(Object.keys(JSON.parse(localStorage.redux_localstorage_simple_phones)).length)
+
+
     return (
       <Grid item xs={6} >
         <Grid container spacing={16}>
