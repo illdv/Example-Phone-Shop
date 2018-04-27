@@ -34,15 +34,23 @@ export default (state = initialState, { type, payload }) => {
 
 
 
-      const copy = state.splice('')
-      const index = R.findIndex(R.propEq('id', payload.phone.id))(state)
 
-      copy.splice(index, currentQuantity.length, ...currentQuantity)
+      const index = state.findIndex(phone => phone.id === payload.phone.id)
 
 
 
 
-      return copy
+
+
+
+
+      state.splice(index, currentQuantity.length, ...currentQuantity)
+
+
+
+
+
+      return state
 
     case REMOVE_PHONE_FROM_BASKET:
 

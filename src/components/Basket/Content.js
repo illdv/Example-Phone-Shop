@@ -7,10 +7,11 @@ import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 
 const Content = ({ phones, totalPrice }) => {
 
-  const getBody = () => (
+  const getBody = () => {
 
+    console.log('!!!')
 
-    <Table>
+    return < Table >
       <TableBody>
         {phones.map(phone =>
           <ContentValue phone={phone} key={phone.id} />
@@ -22,9 +23,9 @@ const Content = ({ phones, totalPrice }) => {
           </TableCell>
         </TableRow>
       </TableBody>
-    </Table>
+    </Table >
+  }
 
-  )
 
   return <div className='col-md-9'>
 
@@ -37,4 +38,5 @@ const Content = ({ phones, totalPrice }) => {
 
 export default connect(state => ({
   totalPrice: getTotalBasketPrice(state)
-}))(Content)
+}), { pure: false }
+)(Content)

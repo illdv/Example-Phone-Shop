@@ -73,6 +73,6 @@ export default connect(
   state => ({
     lengthBasket: state.basket.length
   }),
-  { removePhoneFromBasket, handleQuantityToBasket }
+  { removePhoneFromBasket, handleQuantityToBasket }, null, { pure: false }
 
 )(ContentValue)

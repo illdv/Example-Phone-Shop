@@ -8,9 +8,10 @@ export const getPhoneById = (state, id) => R.prop(id, state.phones)
 export const getTotalBasketPrice = state => {
   const totalPrice = R.compose(
     R.sum,
-    R.pluck('price'),
 
+    R.map(phone => phone.price)
   )(state.basket)
+  console.log(state.basket);
 
 
   return totalPrice
