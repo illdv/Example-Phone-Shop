@@ -4,7 +4,7 @@ import { take } from 'ramda'
 import { addPhoneToBasket } from '../AC'
 import { connect } from 'react-redux'
 
-
+import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
 
 import InfoOutline from '@material-ui/icons/InfoOutline'
 import Button from 'material-ui/Button';
@@ -49,7 +49,25 @@ const Phone = ({ phone, addPhoneToBasket }) => {
         more info
         </Button>
     </CardActions>
+    <div >
+      <GridList cellHeight={180} >
 
+
+        <GridListTile key={phone.image}>
+          <img src={phone.image} alt={phone.name} />
+          <GridListTileBar
+            title={phone.name}
+            subtitle={<span>by: {phone.description}</span>}
+          // actionIcon={
+          //   <IconButton className={classes.icon}>
+          //     <InfoIcon />
+          //   </IconButton>
+          // }
+          />
+        </GridListTile>
+
+      </GridList>
+    </div>
   </Card>
 
 
