@@ -10,47 +10,26 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
 
     case ADD_PHONE_TO_BASKET:
-
-
-
       return R.append(payload, state)
-
 
 
     case CHANGE_QUALITY:
 
-
       if (payload.quantity === '0') {
 
-        return state.filter(phone => phone.id !== payload.phone.id)
+        return R.filter(phone => phone.id !== payload.phone.id)(state)
       }
 
       const currentQuantity = R.repeat(payload.phone, payload.quantity)
 
+      const index = R.findIndex(phone => phone.id === payload.phone.id)(state)
 
+      const phones = R.compose(
+        R.insertAll(index, currentQuantity),
+        R.filter(value => value.id !== payload.phone.id)
+      )(state)
 
-      const fl = state.filter(value => value.id === payload.phone.id)
-
-
-
-
-
-      const index = state.findIndex(phone => phone.id === payload.phone.id)
-
-
-
-
-
-
-
-
-      state.splice(index, currentQuantity.length, ...currentQuantity)
-
-
-
-
-
-      return state
+      return phones
 
     case REMOVE_PHONE_FROM_BASKET:
 

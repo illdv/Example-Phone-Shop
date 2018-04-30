@@ -11,7 +11,7 @@ export const getTotalBasketPrice = state => {
 
     R.map(phone => phone.price)
   )(state.basket)
-  console.log(state.basket);
+
 
 
   return totalPrice

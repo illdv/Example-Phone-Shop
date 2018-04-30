@@ -11,7 +11,7 @@ const BasketCart = ({ totalBasketCount, totalPrice }) => {
 
   return <Button
     variant='raised'
-    fullWidth={true}
+
     color='primary'
     component={Link} to='/basket'
   >
