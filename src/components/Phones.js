@@ -10,7 +10,6 @@ import Phone from './Phone'
 import { Grid } from 'material-ui'
 
 
-
 class Phones extends Component {
 
   componentDidMount() {
@@ -27,27 +26,21 @@ class Phones extends Component {
     if (
       (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 1)
     ) {
-
-
       this.props.loadMorePhones();
     }
   }
-  render() {
 
-    console.log(Object.keys(JSON.parse(localStorage.redux_localstorage_simple_phones)).length)
+  render() {
     return (
-      <Grid item xs={6} >
+      <Grid item sm={8} >
         <Grid container spacing={16}>
           {this.props.phones.map(phone =>
-            <Grid item sm={4} xs={2} key={phone.id}>
+            <Grid item md={4} sm={6} xs={6} key={phone.id}>
               <Phone phone={phone} />
             </Grid>
           )}
         </Grid>
       </Grid>
-
-
-
     )
   }
 }

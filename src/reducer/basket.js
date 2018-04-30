@@ -1,5 +1,5 @@
 import { ADD_PHONE_TO_BASKET, REMOVE_PHONE_FROM_BASKET, CLEAN_BASKET, CHANGE_QUALITY } from "../constants";
-import { replace, repeat, append, without, of } from 'ramda'
+import * as R from 'ramda'
 
 
 const initialState = []
@@ -10,29 +10,34 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
 
     case ADD_PHONE_TO_BASKET:
-
-
-      return append(payload.id, state)
-
+      return R.append(payload, state)
 
 
     case CHANGE_QUALITY:
+
       if (payload.quantity === '0') {
-        return without(of(payload.id), state)
+
+        return R.filter(phone => phone.id !== payload.phone.id)(state)
       }
 
+      const currentQuantity = R.repeat(payload.phone, payload.quantity)
 
-      const currentQuantity = repeat(payload.id, payload.quantity).join(' ')
+      const index = R.findIndex(phone => phone.id === payload.phone.id)(state)
 
-      const fl = state.filter(value => value === payload.id).join(' ')
+      const phones = R.compose(
+        R.insertAll(index, currentQuantity),
+        R.filter(value => value.id !== payload.phone.id)
+      )(state)
 
-      const rep = replace(fl, currentQuantity, state.join(' ')).split(' ')
-
-      return rep
+      return phones
 
     case REMOVE_PHONE_FROM_BASKET:
 
-      return without(of(payload), state)
+      const filter = R.filter(phone => phone.id !== payload)(state)
+
+
+
+      return filter
 
     case CLEAN_BASKET:
       return []

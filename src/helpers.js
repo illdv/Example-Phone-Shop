@@ -8,9 +8,11 @@ export const getPhoneById = (state, id) => R.prop(id, state.phones)
 export const getTotalBasketPrice = state => {
   const totalPrice = R.compose(
     R.sum,
-    R.pluck('price'),
-    R.map(id => getPhoneById(state, id))
+
+    R.map(phone => phone.price)
   )(state.basket)
+
+
 
   return totalPrice
 }
@@ -20,14 +22,14 @@ export const getBasketPhonesWithCount = state => {
 
   const phoneCount = id => R.compose(
     R.length,
-    R.filter(basketId => R.equals(id, basketId))
+    R.filter(phone => R.equals(id, phone.id))
   )(state.basket)
 
   const phoneWithCount = phone => R.assoc('count', phoneCount(phone.id), phone)
 
   const phones = R.compose(
     R.map(phoneWithCount),
-    R.map(id => getPhoneById(state, id))
+
   )(uniqIds)
 
   return phones

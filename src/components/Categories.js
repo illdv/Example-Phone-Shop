@@ -11,7 +11,7 @@ import List, { ListItem, ListItemText } from 'material-ui/List';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import Divider from 'material-ui/Divider';
 import { withStyles } from 'material-ui/styles';
-import { withTheme } from 'material-ui/styles';
+
 
 
 
@@ -82,7 +82,6 @@ const Categories = ({ categories, activeCategoryId, classes }) => {
 
 export default compose(
   withStyles(styles),
-  withTheme(),
   withRouter,
   connect((state, ownProps) => ({
     categories: values(state.categories),
