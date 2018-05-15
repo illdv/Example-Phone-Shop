@@ -10,7 +10,15 @@ import Phone from './Phone'
 import { Grid } from 'material-ui'
 
 
+
 class Phones extends Component {
+
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.phones[0] === this.props.phones[0]) {
+      return false
+    }
+    return true
+  }
 
   componentDidMount() {
     this.props.fetchPhones()
@@ -31,21 +39,21 @@ class Phones extends Component {
   }
 
   render() {
+
     return (
-      <Grid item sm={8} >
-        <Grid container spacing={16}>
-          {this.props.phones.map(phone =>
-            <Grid item md={4} sm={6} xs={6} key={phone.id}>
-              <Phone phone={phone} />
-            </Grid>
-          )}
-        </Grid>
+      <Grid container spacing={16}>
+        {this.props.phones.map(phone =>
+          <Grid item md={4} sm={6} xs={12} key={phone.id}>
+            <Phone phone={phone} />
+          </Grid>
+        )}
+
       </Grid>
+
+
     )
   }
 }
-
-
 export default compose(
   withRouter,
   connect(

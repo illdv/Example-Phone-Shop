@@ -6,24 +6,25 @@ import { AppBar, Toolbar, Typography } from 'material-ui'
 const style = {
   appBar: {
     marginBottom: 20,
-
   },
 };
 
 export default props => {
 
-  return <AppBar position="sticky" style={style.appBar}>
+  return <AppBar position='sticky' style={style.appBar}>
+
     <Toolbar>
-
-
-      <Typography variant="headline" color='inherit' paragraph={true} >
+      <Typography variant="headline" color='inherit'>
         name of shop
       </Typography>
 
 
       <Search />
       <BasketCart />
+
+
     </Toolbar>
+
   </AppBar>
 
 }

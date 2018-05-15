@@ -2,12 +2,13 @@ import { FETCH_PHONES, LOAD_MORE_PHONES, FETCH_PHONES_BY_NAME, START, SUCCESS, F
 import * as R from 'ramda'
 import { replace } from 'react-router-redux'
 
+import { phones, categories } from '../mocky/'
 
 const generateId = phones => phones.map(phone => R.assoc('id', (Date.now() + Math.random()).toString(), phone))
 
 
-const phones = fetch('http://www.mocky.io/v2/5ae089823200007600510c5b')
-    .then(response => response.json())
+// const phonesf = fetch('http://www.mocky.io/v2/5aeb3da33000001000575468')
+//     .then(response => response.json())
 
 
 export const fetchPhones = () => dispatch => {
@@ -16,18 +17,30 @@ export const fetchPhones = () => dispatch => {
         type: FETCH_PHONES + START
     })
 
-    phones.then(body =>
+    try {
         dispatch({
             type: FETCH_PHONES + SUCCESS,
-            payload: body.phones
+            payload: phones
         })
-    ).catch(error => {
+    } catch (err) {
         dispatch({
             type: FETCH_PHONES + FAIL,
-            payload: error
+            payload: err
         })
         dispatch(replace('/error'))
-    })
+    }
+    // phones.then(body =>
+    //     dispatch({
+    //         type: FETCH_PHONES + SUCCESS,
+    //         payload: body.phones
+    //     })
+    // ).catch(error => {
+    //     dispatch({
+    //         type: FETCH_PHONES + FAIL,
+    //         payload: error
+    //     })
+    //     dispatch(replace('/error'))
+    // })
 }
 
 
@@ -38,21 +51,33 @@ export const loadMorePhones = () => (dispatch, getState) => {
 
     dispatch({ type: LOAD_MORE_PHONES + START })
 
-    offset !== 12 && phones.then(body => {
+    // // offset !== 12 && phones.then(body => {
 
-        return dispatch({
+    // //     return dispatch({
+    // //         type: LOAD_MORE_PHONES + SUCCESS,
+    // //         payload: generateId(body.phones)
+    // //     })
+    // // }
+    // // )
+    //     .catch(error => {
+    //         dispatch({
+    //             type: LOAD_MORE_PHONES + FAIL,
+    //             payload: error
+    //         })
+    //         dispatch(replace('/error'))
+    //     })
+    try {
+        offset !== 12 && dispatch({
             type: LOAD_MORE_PHONES + SUCCESS,
-            payload: generateId(body.phones)
+            payload: generateId(phones)
         })
+    } catch (err) {
+        dispatch({
+            type: LOAD_MORE_PHONES + FAIL,
+            payload: err
+        })
+        dispatch(replace('/error'))
     }
-    )
-        .catch(error => {
-            dispatch({
-                type: LOAD_MORE_PHONES + FAIL,
-                payload: error
-            })
-            dispatch(replace('/error'))
-        })
 }
 
 
@@ -62,43 +87,70 @@ export const fetchPhoneByName = name => dispatch => {
         type: FETCH_PHONES_BY_NAME + START
     })
 
-    phones.then(body => {
+    // phonesf.then(body => {
+
+
+
+    //     dispatch({
+    //         type: FETCH_PHONES_BY_NAME + SUCCESS,
+    //         payload: R.find(R.propEq('name', name))(body.phones)
+    //     })
+    // }
+
+    // ).catch(err => {
+    //     dispatch({
+    //         type: FETCH_PHONES_BY_NAME + FAIL,
+    //         payload: err,
+    //     })
+    //     dispatch(replace('/error'))
+    // }
+    // )
+    try {
+
 
         dispatch({
             type: FETCH_PHONES_BY_NAME + SUCCESS,
-            payload: R.find(R.propEq('name', name))(body.phones)
+            payload: R.find(R.propEq('name', name))(phones)
         })
-    }
-
-    ).catch(err => {
+    } catch (err) {
         dispatch({
             type: FETCH_PHONES_BY_NAME + FAIL,
-            payload: err,
-            error: true
+            payload: err
         })
         dispatch(replace('/error'))
     }
-    )
 }
 
 export const fetchCategories = () => dispatch => {
 
     dispatch({ type: FETCH_CATEGORIES + START })
 
-    fetch('http://www.mocky.io/v2/5ac7e0183100006000a57690')
-        .then(response => response.json())
-        .then(body => {
-            dispatch({
-                type: FETCH_CATEGORIES + SUCCESS,
-                payload: body.categories
-            })
-        }).catch(error =>
-            dispatch({
-                type: FETCH_CATEGORIES + FAIL,
-                payload: error,
-                error: true
-            })
-        )
+    // fetch('http://www.mocky.io/v2/5ac7e0183100006000a57690')
+    //     .then(response => response.json())
+    //     .then(body => {
+    //         dispatch({
+    //             type: FETCH_CATEGORIES + SUCCESS,
+    //             payload: body.categories
+    //         })
+    //     }).catch(error =>
+    //         dispatch({
+    //             type: FETCH_CATEGORIES + FAIL,
+    //             payload: error,
+    //             error: true
+    //         })
+    //     )
+    try {
+        dispatch({
+            type: FETCH_CATEGORIES + SUCCESS,
+            payload: categories
+        })
+    } catch (err) {
+        dispatch({
+            type: FETCH_CATEGORIES + FAIL,
+            payload: err
+        })
+        dispatch(replace('/error'))
+    }
 }
 
 export const addPhoneToBasket = phone => dispatch => {
@@ -156,7 +208,4 @@ export const cleanBasket = () => dispatch => {
     dispatch({
         type: CLEAN_BASKET
     })
-}
-export const checkoutBasket = phones => () => {
-    alert(JSON.stringify(phones))
 }

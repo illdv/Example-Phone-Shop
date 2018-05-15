@@ -24,6 +24,8 @@ export default (state = initialState, { type, payload }) => {
       return R.merge(state, moreValues)
 
     case FETCH_PHONES_BY_NAME + SUCCESS:
+
+
       return R.assoc(payload.id, payload, state)
 
     default: return state

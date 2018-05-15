@@ -5,32 +5,42 @@ import ContentValue from './ContentValue'
 import { isEmpty } from 'ramda'
 import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 
-const Content = ({ phones, totalPrice }) => {
+import { CheckoutBasket } from '../../Buttons'
 
-  const getBody = () => {
-    return < Table >
-      <TableBody>
-        {phones.map(phone =>
-          <ContentValue phone={phone} key={phone.id} />
-        )}
-        <TableRow>
-          <TableCell>
-            <b>Total:</b>
-            <span> ${totalPrice}</span>
-          </TableCell>
-        </TableRow>
-      </TableBody>
-    </Table >
+const Content = ({ phones, totalPrice, checkoutBasket }) => {
+
+  const getBody = () => <React.Fragment>{
+    phones.map(phone =>
+      <ContentValue phone={phone} key={phone.id} />
+    )
   }
+    <TableRow>
+      <TableCell>
+        <b>Total:</b>
+        <span> ${totalPrice}</span>
+      </TableCell>
 
 
-  return <div className='col-md-9'>
+      <TableCell>
+        <CheckoutBasket phones={phones} />
+      </TableCell>
+    </TableRow>
+  </React.Fragment>
 
-    {isEmpty(phones) ?
-      <div>Your shopping cart is empty</div> :
-      getBody()
-    }
-  </div>
+
+
+
+
+  return <Table>
+    <TableBody>
+      {isEmpty(phones) ?
+        <TableRow>
+          <TableCell>Your shopping cart is empty </TableCell>
+        </TableRow> :
+        getBody()
+      }
+    </TableBody>
+  </Table>
 }
 
 export default connect(state => ({

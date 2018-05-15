@@ -26,11 +26,10 @@ class ContentValue extends Component {
         <TableCell>
           <img style={{ maxWidth: '100%' }} src={phone.image} alt={phone.name} />
         </TableCell>
-
         <TableCell>{phone.name}</TableCell>
         <TableCell>${phone.price}</TableCell>
         <TableCell>
-          <TextField style={{ width: 100 }}
+          <TextField style={{ width: 50 }}
             id="quantity"
             type="number"
             value={this.state.input}
@@ -51,7 +50,6 @@ class ContentValue extends Component {
             </Button>
           </Tooltip>
         </TableCell>
-
       </TableRow>
     )
   }

@@ -1,10 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchPhoneByName, addPhoneToBasket } from '../AC'
+import { fetchPhoneByName } from '../AC'
 import { compose, pick, toPairs } from 'ramda'
-import BasketCart from './BasketCart'
-import { Link } from 'react-router-dom';
+
+
+
+
 import { getPhoneById } from '../helpers'
+import AddToBasket, { Continue } from '../Buttons'
+
+import { Grid, Typography, Divider, ListItem, ListItemText, Card, CardContent, CardMedia, CardHeader } from 'material-ui'
+
+
+
+
 
 class SelfPhone extends Component {
 
@@ -14,83 +23,74 @@ class SelfPhone extends Component {
 
   render() {
 
-    return <div className='view-container'>
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-9'>
-            {this.props.phone && this.renderContent()}
-          </div>
-          <aside className='col-md-3'>
-            {this.props.phone && this.renderSidebar()}
-          </aside>
-        </div>
-      </div>
-    </div>
+
+    const { phone } = this.props
+
+    return <Grid component='section' item md={6} style={{ position: "relative", margin: '0 auto' }}>
+      <Card raised>
+        <Grid container justify='center' spacing={40} >
+          {phone && this.LeftPanel()}
+          {phone && this.RightPanel()}
+        </Grid>
+
+      </Card>
+      <Continue />
+    </Grid>
+
+
   }
 
-  renderContent = () => {
+  LeftPanel = () => {
+
     const { phone } = this.props
-    return <div className='thumbnail'>
-      <div className='row'>
-        <div className='col-md-6'>
-          <img className='img-thumbnail' src={phone.image} alt={phone.name} />
-        </div>
-        <div className='col-md-6'>
-          {this.renderFields()}
-        </div>
-        <div className='caption-full'>
-          <h4 className='pull-right'>${phone.price}</h4>
-          <h4>{phone.name}</h4>
-          <p>{phone.description}</p>
-        </div>
-      </div>
-    </div>
+
+    return <Grid item md={5} >
+      <CardMedia
+        src={phone.image}
+        title={phone.name}
+        component='img'
+      />
+      <CardHeader
+        title={`${phone.price}$`}
+        subheader={phone.name}
+        action={<AddToBasket phone={phone} />}
+      />
+      <CardContent>
+        <Typography variant="body1">
+          {phone.description}
+        </Typography>
+      </CardContent>
+    </Grid>
   }
 
-  renderFields = () => {
-    const { phone } = this.props
-    const columnFields = compose(
-      toPairs,
-      pick([
-        'cpu',
-        'camera',
-        'size',
-        'weight',
-        'display',
-        'battery',
-        'memory'
-      ])
-    )(phone)
-    return columnFields.map(([key, value]) =>
-      <div className='column' key={key}>
-        <div className='ab-details-title'>
-          <span> {key}: </span>
-        </div>
-        <div className='ab-details-info'>
-          <p> {value}</p>
-        </div>
-      </div>
+  RightPanel = () => <Grid item md={4} component='ul' container direction='column' justify='center'>
+    {this.columnFields().map(([key, value]) => <React.Fragment key={key}>
+      <ListItem >
+        <ListItemText primary={key} secondary={value} />
+      </ListItem>
+      <Divider />
+    </React.Fragment>
     )
+    }
 
-  }
-  renderSidebar = () => {
-    const { phone, addPhoneToBasket } = this.props
-    return <div>
-      <p className='lead'>Quick shop</p>
-      <BasketCart />
-      <div className='form-group'>
-        <h4>{phone.name}</h4>
-        <h5>${phone.price}</h5>
-      </div>
-      <Link to='/phones' className='btn btn-info btn-block'>
-        Back to store
-      </Link>
-      <button type='button' className='btn btn-success btn-block'
-        onClick={() => addPhoneToBasket(phone)}>
-        Add to cart
-      </button>
-    </div>
-  }
+  </Grid>
+
+  columnFields = () => compose(
+    toPairs,
+    pick([
+      'cpu',
+      'camera',
+      'size',
+      'weight',
+      'display',
+      'battery',
+      'memory'
+    ])
+  )(this.props.phone)
+
+
+
+
 }
 
 
@@ -98,5 +98,5 @@ export default connect(
   state => ({
     phone: getPhoneById(state, state.selfPhonePage.id)
   }),
-  { fetchPhoneByName, addPhoneToBasket }
+  { fetchPhoneByName }
 )(SelfPhone)

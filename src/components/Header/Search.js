@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { searchPhone } from '../AC'
+import { searchPhone } from '../../AC'
 
-import iconSearch from '@material-ui/icons/Search';
+
 import SearchBar from 'material-ui-search-bar'
 
 
@@ -15,9 +15,7 @@ class Search extends Component {
   render() {
 
     return (
-
-
-      <SearchBar
+      <SearchBar style={{ marginRight: 'auto', marginLeft: 'auto' }}
         onChange={(targetValue) => this.setState({
           value: targetValue
         })}
@@ -30,10 +28,6 @@ class Search extends Component {
   capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1)
 
   handleSubmit = () => {
-
-
-
-
     this.props.searchPhone(this.capitalize(this.state.value))
     this.setState({
       value: ''
