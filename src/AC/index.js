@@ -49,6 +49,8 @@ export const loadMorePhones = () => (dispatch, getState) => {
     const offset = (getState().phonesPage.ids).length
 
 
+
+
     dispatch({ type: LOAD_MORE_PHONES + START })
 
     // // offset !== 12 && phones.then(body => {
@@ -67,7 +69,7 @@ export const loadMorePhones = () => (dispatch, getState) => {
     //         dispatch(replace('/error'))
     //     })
     try {
-        offset !== 12 && dispatch({
+        offset !== 18 && dispatch({
             type: LOAD_MORE_PHONES + SUCCESS,
             payload: generateId(phones)
         })

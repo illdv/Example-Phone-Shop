@@ -1,23 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { fetchPhones, loadMorePhones, fetchCategories } from "../AC";
 
 import { getPhones } from '../helpers'
 import Phone from './Phone'
-import { Grid } from 'material-ui'
+import { Grid } from '@material-ui/core'
 
 
 
 class Phones extends Component {
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.phones[0] === this.props.phones[0]) {
-      return false
-    }
-    return true
+    return nextProps.phones.length > this.props.phones.length ?
+      true : false
   }
 
   componentDidMount() {
@@ -39,7 +36,6 @@ class Phones extends Component {
   }
 
   render() {
-
     return (
       <Grid container spacing={16}>
         {this.props.phones.map(phone =>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import 'bootstrap/dist/css/bootstrap.css'
+
 
 import Routes from './Routes'
 import Header from './components/Header/'
