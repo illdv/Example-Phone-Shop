@@ -10,7 +10,7 @@ import history from './history'
 
 ReactDOM.render(
 
-    <Provider store={store}>
+    <Provider store={store} >
         <ConnectedRouter history={history}>
             <App />
         </ConnectedRouter>

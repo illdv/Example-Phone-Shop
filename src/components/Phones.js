@@ -13,8 +13,14 @@ import { Grid } from '@material-ui/core'
 class Phones extends Component {
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.phones.length > this.props.phones.length ?
-      true : false
+
+    if (nextProps.basket.length > this.props.basket.length && this.props.phones.length !== 0) {
+      return false
+    }
+    if (nextProps.basket.length < this.props.basket.length) {
+      return false
+    }
+    return true
   }
 
   componentDidMount() {
@@ -29,7 +35,7 @@ class Phones extends Component {
 
   onScroll = () => {
     if (
-      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 1)
+      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 200)
     ) {
       this.props.loadMorePhones();
     }
@@ -37,16 +43,13 @@ class Phones extends Component {
 
   render() {
     return (
-      <Grid container spacing={16}>
+      <Grid container spacing={16} justify='center'>
         {this.props.phones.map(phone =>
-          <Grid item md={4} sm={6} xs={12} key={phone.id}>
+          <Grid item md={4} sm={6} xs={10} key={phone.id}>
             <Phone phone={phone} />
           </Grid>
         )}
-
       </Grid>
-
-
     )
   }
 }
@@ -55,6 +58,7 @@ export default compose(
   connect(
     (state, ownProps) => ({
       phones: getPhones(state, ownProps),
+      basket: state.basket
     }),
     { fetchPhones, loadMorePhones, fetchCategories }
   ))(Phones)

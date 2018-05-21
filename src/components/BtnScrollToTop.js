@@ -1,6 +1,6 @@
 import React from 'react'
-import { withStyles } from 'material-ui/styles';
-import { Button, Tooltip } from 'material-ui/'
+import { withStyles } from '@material-ui/core/styles';
+import { Button, Tooltip } from '@material-ui/core'
 import classNames from 'classnames';
 import { ArrowUpward } from '@material-ui/icons';
 
@@ -9,10 +9,10 @@ const styles = {
 
   btnTop: {
     position: 'fixed',
-    bottom: 20,
+    bottom: 5,
+    right: 5,
     transition: 'all 0.5s ease-in-out',
     transitionProperty: 'opacity, right',
-    right: 20,
     zIndex: 1000
   },
   opacity: {

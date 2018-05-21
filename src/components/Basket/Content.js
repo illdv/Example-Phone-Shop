@@ -1,49 +1,43 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 import { getTotalBasketPrice } from '../../helpers'
 import ContentValue from './ContentValue'
 import { isEmpty } from 'ramda'
-import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
+import { Table, TableBody, TableCell, TableRow, TableFooter, withWidth, Hidden } from '@material-ui/core';
+import Total, { Checkout } from './Sidebar';
 
-import { CheckoutBasket } from '../../Buttons'
+const Content = ({ phones, totalPrice, checkoutBasket, width }) => {
 
-const Content = ({ phones, totalPrice, checkoutBasket }) => {
-
-  const getBody = () => <React.Fragment>{
+  const getBody = () =>
     phones.map(phone =>
       <ContentValue phone={phone} key={phone.id} />
     )
-  }
-    <TableRow>
-      <TableCell>
-        <b>Total:</b>
-        <span> ${totalPrice}</span>
-      </TableCell>
+
+  return isEmpty(phones) ?
 
 
-      <TableCell>
-        <CheckoutBasket phones={phones} />
-      </TableCell>
-    </TableRow>
-  </React.Fragment>
+    <p> Your shopping cart is empty</p>
+
+    :
+    <React.Fragment>
+
+      {getBody()}
+
+      <Hidden mdUp>
 
 
+        <Total />
 
+        <Checkout phones={phones} />
 
-
-  return <Table>
-    <TableBody>
-      {isEmpty(phones) ?
-        <TableRow>
-          <TableCell>Your shopping cart is empty </TableCell>
-        </TableRow> :
-        getBody()
-      }
-    </TableBody>
-  </Table>
+      </Hidden>
+    </React.Fragment>
 }
 
-export default connect(state => ({
-  totalPrice: getTotalBasketPrice(state)
-})
-)(Content)
+export default compose(
+  withWidth(),
+  connect(state => ({
+    totalPrice: getTotalBasketPrice(state)
+  })
+  ))(Content)

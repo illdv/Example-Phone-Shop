@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 
 
 import classnames from 'classnames'
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
-import { IconButton, Collapse, Typography, Card, CardActions, CardContent, CardMedia, CardHeader } from 'material-ui';
+import { IconButton, Collapse, Typography, Card, CardActions, CardContent, CardMedia, CardHeader } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 
 
@@ -22,7 +22,23 @@ const styles = theme => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
-
+  subheader: {
+    whiteSpace: 'nowrap'
+  },
+  relativePosition: {
+    position: 'relative'
+  },
+  centaredHalf: {
+    width: '70%',
+    left: '70%',
+    marginLeft: '-55%'
+  },
+  background: {
+    position: 'absolute',
+    bottom: 0,
+    background: 'rgba(0, 0, 0, 0.5)',
+    width: '100%'
+  }
 });
 
 class Phone extends Component {
@@ -39,16 +55,25 @@ class Phone extends Component {
 
     return <Card raised
     >
-      <Link to={`/phones/${phone.name}`}>
-        <CardMedia
-          src={phone.image}
-          title={phone.name}
-          component='img'
-        />
-      </Link>
+      <div className={classes.relativePosition}>
+        <Link to={`/phones/${phone.name}`}>
+          <CardMedia
+            src={phone.image}
+            title={phone.name}
+            component='img'
+          />
+        </Link>
+        <div className={classes.background}>
+          <CardActions className={classnames(classes.relativePosition, classes.centaredHalf)}>
+
+            <AddToBasket phone={phone} />
+          </CardActions>
+        </div>
+      </div>
       <CardHeader
         title={`${phone.price}$`}
         subheader={phone.name}
+
         action={
           <IconButton
             className={classnames(classes.expand, {
@@ -61,6 +86,9 @@ class Phone extends Component {
             <ExpandMore />
           </IconButton>
         }
+        classes={{
+          subheader: classes.subheader,
+        }}
       />
 
       <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
@@ -71,10 +99,7 @@ class Phone extends Component {
         </CardContent>
       </Collapse>
 
-      <CardActions>
 
-        <AddToBasket phone={phone} />
-      </CardActions>
     </Card>
 
   }

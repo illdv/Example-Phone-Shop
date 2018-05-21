@@ -7,25 +7,25 @@ import { propEq, isNil } from 'ramda'
 import { getActiveCategoryId } from '../helpers'
 import classNames from 'classnames'
 
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import ListSubheader from 'material-ui/List/ListSubheader';
-import Divider from 'material-ui/Divider';
-import { withStyles } from 'material-ui/styles';
+import { Grid, Chip } from '@material-ui/core';
+
+
+import { withStyles } from '@material-ui/core/styles';
 
 
 
 
-const styles = {
+const styles = theme => ({
   active: {
     background: '#3f51b5',
-    '&:hover': {
-      background: '#3f51b5'
-    }
-  },
-  white: {
     color: 'white'
   },
-};
+  chip: {
+    textDecoration: 'none',
+    cursor: 'pointer',
+    margin: theme.spacing.unit
+  }
+});
 
 
 
@@ -33,47 +33,34 @@ const styles = {
 const Categories = ({ categories, activeCategoryId, classes }) => {
 
   return (
-    <List >
-      <ListSubheader style={{ fontSize: 20 }}
-        color='inherit'
-        disableSticky={true}
-      >Brands:</ListSubheader>       <Divider />
-
-      <ListItem component={Link} to='/phones'
+    <Grid container item md={8} justify='center'>
+      <Chip component={Link} to='/phones'
         className={classNames({
           [classes.active]: isNil(activeCategoryId),
+          [classes.chip]: true,
         })}
-        button
+        label={'All'.toUpperCase()}
+
       >
-        <ListItemText primary="All" disableTypography={true}
-          className={classNames({
-            [classes.white]: isNil(activeCategoryId),
-          })}
         />
-      </ListItem>
-      <Divider />
+      </Chip>
+
 
       {categories.map(category => {
         const getActiveState = propEq('id', activeCategoryId)
 
-        return <React.Fragment key={category.name}>
-          <ListItem component={Link} to={`/categories/${category.id}`}
-            button
-            className={classNames({
-              [classes.active]: getActiveState(category),
-            })}
-          >
-            <ListItemText primary={category.name}
-              disableTypography={true}
-              className={classNames({
-                [classes.white]: getActiveState(category),
-              })} />
-          </ListItem>
-          <Divider />
-        </React.Fragment >
+        return <Chip component={Link} to={`/categories/${category.id}`}
+          label={category.name.toUpperCase()}
+          className={classNames({
+            [classes.active]: getActiveState(category),
+            [classes.chip]: true,
+          })}
+          key={category.name}
+        >
 
+        </Chip>
       })}
-    </List>
+    </Grid>
 
   )
 }

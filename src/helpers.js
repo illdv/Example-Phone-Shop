@@ -73,5 +73,3 @@ export const getPhones = (state, ownProps) => {
 
   return phones
 }
-
-

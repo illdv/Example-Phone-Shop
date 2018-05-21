@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
-import Snackbar from 'material-ui/Snackbar';
+import Snackbar from '@material-ui/core/Snackbar';
 import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+
+  snackbarContent: {
+    flexGrow: 0,
+    minWidth: 0
+  }
+});
 
 class SimpleSnackbar extends Component {
 
@@ -48,6 +58,10 @@ class SimpleSnackbar extends Component {
         autoHideDuration={2000}
         onClose={this.handleClose}
         message={<span id="message-id">Phone  added to  cart</span>}
+        ContentProps={{
+
+          className: this.props.classes.snackbarContent,
+        }}
       />
 
     );
@@ -55,8 +69,10 @@ class SimpleSnackbar extends Component {
 }
 
 
-export default connect(
-  state => ({
-    length: state.basket
-  })
-)(SimpleSnackbar);
+export default compose(
+  withStyles(styles),
+  connect(
+    state => ({
+      length: state.basket
+    })
+  ))(SimpleSnackbar);
