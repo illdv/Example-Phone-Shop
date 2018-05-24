@@ -40,7 +40,7 @@ class Footer extends React.Component {
     const { classes, theme } = this.props;
 
     return (
-      <div>
+      <footer /*style={{ flex: '0 0 auto' }}*/ >
         <AppBar position="static" color="default">
           <Tabs
             value={this.state.value}
@@ -63,7 +63,7 @@ class Footer extends React.Component {
           <TabContainer dir={theme.direction}>Item Two</TabContainer>
           <TabContainer dir={theme.direction}>Item Three</TabContainer>
         </SwipeableViews>
-      </div>
+      </footer>
     );
   }
 }

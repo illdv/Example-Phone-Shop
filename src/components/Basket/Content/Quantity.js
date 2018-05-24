@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { handleQuantityToBasket } from '../../../AC'
 
-import { Grid, Input, IconButton } from '@material-ui/core';
+import { Grid, Typography, IconButton, Divider, withWidth } from '@material-ui/core';
 import { AddCircleOutline, RemoveCircleOutline } from '@material-ui/icons';
 
 
@@ -12,24 +12,14 @@ class Quantity extends Component {
     input: this.props.phone.count
   }
 
-  componentDidMount() {
-
-    console.log(this.textInput.value);
-
-  }
-
 
 
   render() {
-    const { phone, phones } = this.props
 
-
-
-    return <Grid container alignItems="baseline" justify='center'>
-      <Grid item>
+    return <Grid container direction={this.props.width === 'xs' ? 'column' : 'row'} alignItems="center" justify='center'>
+      <Grid item >
         <IconButton onClick={
-
-          this.handleInput(this.state.input, phone, '-')
+          this.handleInput(this.state.input, '-')
         }
           color='primary'
         >
@@ -37,23 +27,10 @@ class Quantity extends Component {
         </IconButton>
       </Grid>
       <Grid item>
-        <Input style={{ width: 30 }}
-
-
-          id={phone.id}
-          value={this.state.input}
-          onChange={this.handleInput(this.state.input, phone)}
-
-          inputProps={{ style: { textAlign: 'center' } }}
-          inputRef={element =>
-            this.textInput = element
-          }
-          onFocus={() => console.log(this.textInput.id)
-          }
-        />
+        <Typography variant='subheading' align='center' >{this.state.input} <Divider /> </Typography>
       </Grid>
-      <Grid item>
-        <IconButton onClick={this.handleInput(this.state.input, phone, '+')}
+      <Grid item >
+        <IconButton onClick={this.handleInput(this.state.input, '+')}
           color='primary' >
           <AddCircleOutline />
         </IconButton>
@@ -61,29 +38,18 @@ class Quantity extends Component {
     </Grid>
   }
 
-  handleInput = (state, phone, sign) => e => {
+  handleInput = (state, sign) => () => {
 
+    const currentNum = sign === '-' ? state - 1 : state + 1
 
+    console.log(currentNum);
 
-    let currentNum
-    if (sign === '-') {
-      currentNum = state - 1
-    } else if (sign === '+') {
-      currentNum = state + 1
-
-    } else {
-      this.setState({
-        input: e.target.value
-      })
-      currentNum = String(e.target.value).replace(/\D/, '')
-    }
-
-    currentNum && this.props.handleQuantityToBasket(currentNum, phone)
+    currentNum <= 10 && this.props.handleQuantityToBasket(currentNum, this.props.phone)
   }
 
 }
 
-export default connect(
+export default withWidth()(connect(
   null,
   { handleQuantityToBasket }
-)(Quantity)
+)(Quantity))

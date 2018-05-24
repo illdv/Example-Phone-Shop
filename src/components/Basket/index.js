@@ -4,8 +4,12 @@ import { getBasketPhonesWithCount } from '../../helpers'
 import { isEmpty } from 'ramda'
 import { Main, Section } from '../../layouts'
 import { Grid, Hidden, Typography } from '@material-ui/core';
-import Total, { Checkout } from './Sidebar';
+import Total from './Sidebar/Total';
+import Checkout from './Sidebar/Checkout';
+import CleanBasket from './Sidebar/CleanBasket';
 import Content from './Content/'
+
+
 
 const Basket = ({ phones }) => {
 
@@ -17,22 +21,32 @@ const Basket = ({ phones }) => {
           </Typography>
         :
         <React.Fragment>
-          <Grid item sm={10} xs={12} >
-            <Content phones={phones} />
+          <Grid container item sm={10} xs={12} >
+            {phones.map(phone =>
+              <Content phone={phone} key={phone.id} />
+
+            )}
+
           </Grid>
 
+
           <Hidden xsDown>
-            <Grid item sm={2} component='aside' style={{ position: 'relative' }} >
-              <div style={{ position: 'fixed' }}>
-                <Total />
-                <Checkout phones={phones} />
-              </div>
+            <Grid container item sm={2} justify='flex-end' style={{ position: 'relative' }} >
+              <Grid container direction='column' spacing={16} item sm={2} alignItems='flex-end' style={{ position: 'fixed' }}>
+
+
+                {[<Total />, <Checkout phones={phones} />, <CleanBasket />].map(value =>
+                  <Grid item key={Date.now() + Math.random()}>{value}</Grid>)}
+
+              </Grid>
+
             </Grid>
           </Hidden>
 
           <Hidden smUp>
             <Grid container justify='space-between' alignItems='center'>
               <Total />
+              <CleanBasket marginRight={{ marginRight: 'auto', marginLeft: '8px' }} />
               <Checkout phones={phones} />
             </Grid>
           </Hidden>
@@ -41,6 +55,8 @@ const Basket = ({ phones }) => {
     </Section>
   </Main>
 }
+
+
 
 export default connect(
   state => ({

@@ -16,7 +16,7 @@ class App extends Component {
                 <CssBaseline />
                 <Header />
                 <Routes />
-                {/* <Footer /> */}
+                <Footer />
                 <BtnScrollToTop />
             </React.Fragment>
 

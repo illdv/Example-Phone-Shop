@@ -17,9 +17,11 @@ export default withRouter(props => {
 
   return <AppBar position='sticky' >
     <Toolbar style={{ justifyContent: 'space-between' }} disableGutters>
-      {props.location.pathname !== '/phones' ? <Continue /> : <Continue visibilityHidden={{ visibility: 'hidden' }} />}
+      <Grid item xs={1}>
+        {props.location.pathname !== '/phones' ? <Continue /> : <Continue visibilityHidden={{ visibility: 'hidden' }} />}
+      </Grid>
       <Grid item md={8} xs={10} container alignItems='center' spacing={16} style={{ flexShrink: 1 }}>
-        <Grid item style={{ marginRight: 'auto', }}>
+        <Grid item style={{ marginRight: 'auto' }}>
           <Logo />
         </Grid>
         <Hidden xsDown>
@@ -36,7 +38,10 @@ export default withRouter(props => {
           </Grid>
         </Hidden>
       </Grid>
-      <Choicelanguage />
+      <Grid item xs={1} container justify='flex-end'>
+        <Choicelanguage />
+      </Grid>
+
     </Toolbar>
   </AppBar>
 

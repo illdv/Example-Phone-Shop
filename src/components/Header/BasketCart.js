@@ -2,10 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getTotalBasketPrice } from '../../helpers'
-import RemoveShoppingCart from '@material-ui/icons/RemoveShoppingCart'
-import { Button, Badge, Menu, MenuItem, ListItemIcon, ListItemText, Hidden, withWidth } from '@material-ui/core'
+
+import { Button, Badge, Hidden, withWidth } from '@material-ui/core'
 import ShoppingCart from '@material-ui/icons/ShoppingCart'
-import { cleanBasket } from '../../AC'
+
 import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'redux'
 import classnames from 'classnames'
@@ -61,7 +61,7 @@ class BasketCart extends React.Component {
         [classes.xsVisibility]: width === 'xs',
       })
     }}>
-      <Button
+      <Button component={Link} to='/basket'
         size="small"
 
         className={classnames({
@@ -78,26 +78,6 @@ class BasketCart extends React.Component {
           My basket
         </Hidden>
       </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={this.state.anchorEl}
-        open={Boolean(this.state.anchorEl)}
-        onClose={this.handleClose}
-      >
-        <MenuItem onClick={this.handleClose} component={Link} to='/basket'>
-          <ListItemIcon>
-            <ShoppingCart />
-          </ListItemIcon>
-          <ListItemText primary=" To shoping cart" />
-        </MenuItem>
-
-        <MenuItem onClick={this.cleanClose}>
-          <ListItemIcon>
-            <RemoveShoppingCart />
-          </ListItemIcon>
-          <ListItemText primary='Clear basket' />
-        </MenuItem>
-      </Menu>
     </Badge>
   }
 
@@ -109,7 +89,6 @@ export default compose(
     state => ({
       totalBasketCount: state.basket.length,
       totalPrice: getTotalBasketPrice(state)
-    }),
-    { cleanBasket }
+    })
   ))(BasketCart)
 

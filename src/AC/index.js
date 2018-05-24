@@ -210,4 +210,5 @@ export const cleanBasket = () => dispatch => {
     dispatch({
         type: CLEAN_BASKET
     })
+    dispatch(replace('/phones'))
 }
