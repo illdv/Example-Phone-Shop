@@ -5,9 +5,10 @@ import phonesPage from './phonesPage'
 import selfPhonePage from './selfPhonePage'
 import basket from './basket'
 import categories from './categories'
+import language from './language'
 
 
 export default combineReducers({
     routing: routerReducer,
-    phones, phonesPage, selfPhonePage, basket, categories
+    phones, phonesPage, selfPhonePage, basket, categories, language
 })

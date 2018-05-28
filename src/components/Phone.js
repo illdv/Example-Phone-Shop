@@ -53,8 +53,7 @@ class Phone extends Component {
   render() {
     const { phone, classes } = this.props
 
-    return <Card raised
-    >
+    return <Card raised>
       <div className={classes.relativePosition}>
         <Link to={`/phones/${phone.name}`}>
           <CardMedia

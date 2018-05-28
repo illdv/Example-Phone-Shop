@@ -38,7 +38,7 @@ class SelfPhone extends Component {
 
     const { phone } = this.props
 
-    return <Grid item sm={5} xs={12}>
+    return <Grid item sm={4} xs={12}>
 
       <CardMedia
         src={phone.image}
@@ -59,7 +59,7 @@ class SelfPhone extends Component {
     </Grid>
   }
 
-  RightPanel = () => <Grid item sm={5} xs={12}
+  RightPanel = () => <Grid item sm={4} xs={12}
     component='ul' container direction='column' justify='space-between' style={{ paddingRight: '0' }}>
     {this.columnFields().map(([key, value]) => <React.Fragment key={key}>
       <ListItem >

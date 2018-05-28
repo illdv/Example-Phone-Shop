@@ -1,32 +1,40 @@
 import React from 'react';
-
+import { compose } from 'redux'
 import { withStyles } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
+import { Tabs, Tab, Typography, Grid, Paper, Button } from '@material-ui/core';
+
+import { withRouter } from 'react-router-dom'
 
 function TabContainer({ children, dir }) {
   return (
-    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+    <Typography component="div" dir={dir} style={{ textAlign: 'center', padding: 8 * 3 }}>
       {children}
     </Typography>
   );
 }
 
 
-const styles = theme => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
+const styles = theme => {
 
-  },
-});
+
+
+  return ({
+    grand: {
+      background: theme.palette.background.default,
+      position: 'fixed',
+      bottom: 0,
+    },
+
+  })
+};
 
 class Footer extends React.Component {
   state = {
     value: 0,
   };
+
+
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -36,38 +44,52 @@ class Footer extends React.Component {
     this.setState({ value: index });
   };
 
+
+
   render() {
-    const { classes, theme } = this.props;
+    const { theme, classes } = this.props;
 
     return (
-      <footer /*style={{ flex: '0 0 auto' }}*/ >
-        <AppBar position="static" color="default">
-          <Tabs
-            value={this.state.value}
-            onChange={this.handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            fullWidth
+      <Grid container component='footer' justify='center' className={classes.grand} >
+        <Grid item xs={12} >
+          <Paper style={{ background: '#3f51b5', color: 'white' }}>
+            <Tabs
+              value={this.state.value}
+              onChange={this.handleChange}
+              centered
+            >
+              <Tab label="Github" />
+              <Tab label="Twitter" />
+              <Tab label="Telegram" />
+            </Tabs>
+          </Paper>
+        </Grid>
+        <Grid item md={8} xs={12} >
+
+          <SwipeableViews
+            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+            index={this.state.value}
+            onChangeIndex={this.handleChangeIndex}
           >
-            <Tab label="Item One" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
-          </Tabs>
-        </AppBar>
-        <SwipeableViews
-          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={this.state.value}
-          onChangeIndex={this.handleChangeIndex}
-        >
-          <TabContainer dir={theme.direction}>Item One</TabContainer>
-          <TabContainer dir={theme.direction}>Item Two</TabContainer>
-          <TabContainer dir={theme.direction}>Item Three</TabContainer>
-        </SwipeableViews>
-      </footer>
+            <TabContainer dir={theme.direction}>
+              <Button color='default' component='a' target='_blank' href='https://twitter.com/Dvillill' >look source</Button>
+            </TabContainer>
+            <TabContainer dir={theme.direction}>
+              <Button color='primary' component='a' target='_blank' href='https://github.com/illdv/Example-Phone-Shop' >tweet me</Button>
+            </TabContainer>
+            <TabContainer dir={theme.direction}>
+              <Button color='primary' component='a' target='_blank' href='https://t.me/KirillDvoynikov' >write in telegram</Button>
+            </TabContainer>
+          </SwipeableViews>
+        </Grid>
+      </Grid>
     );
   }
 }
 
 
 
-export default withStyles(styles, { withTheme: true })(Footer);
+export default compose(
+  withRouter,
+  withStyles(styles, { withTheme: true })
+)(Footer)

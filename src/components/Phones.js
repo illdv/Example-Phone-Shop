@@ -35,7 +35,7 @@ class Phones extends Component {
 
   onScroll = () => {
     if (
-      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 200)
+      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 1)
     ) {
       this.props.loadMorePhones();
     }

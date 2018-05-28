@@ -14,11 +14,11 @@ export const Continue = ({ visibilityHidden }) => {
       component={Link} to='/phones'
       style={visibilityHidden}
       color='inherit'
+
     >
       <ArrowBack />
     </IconButton>
   </Tooltip>
-
 }
 
 

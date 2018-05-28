@@ -11,7 +11,7 @@ const removePhone = ({ phone, removePhoneFromBasket }) => <div style={{ textAlig
     {`$${phone.price}`}
   </Typography>
   <Tooltip id="tooltip-icon" title="Delete phone">
-    <IconButton color="secondary"
+    <IconButton color="default"
       onClick={() => removePhoneFromBasket(phone.id)}
     >
       <Delete />

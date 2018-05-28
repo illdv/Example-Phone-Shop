@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { compose } from 'redux'
 import BasketCart from './BasketCart'
 import Search from './Search'
 import Choicelanguage from './ChoiceLanguage'
@@ -12,37 +13,46 @@ import { Continue } from '../../Buttons'
 
 
 
-export default withRouter(props => {
+class Header extends Component {
 
 
-  return <AppBar position='sticky' >
-    <Toolbar style={{ justifyContent: 'space-between' }} disableGutters>
-      <Grid item xs={1}>
-        {props.location.pathname !== '/phones' ? <Continue /> : <Continue visibilityHidden={{ visibility: 'hidden' }} />}
-      </Grid>
-      <Grid item md={8} xs={10} container alignItems='center' spacing={16} style={{ flexShrink: 1 }}>
-        <Grid item style={{ marginRight: 'auto' }}>
-          <Logo />
+
+  render() {
+
+    return <AppBar position='fixed'>
+      <Toolbar style={{ justifyContent: 'space-between' }} disableGutters>
+        <Grid item xs={1} >
+          {this.props.location.pathname !== '/phones' ? <Continue /> : <Continue visibilityHidden={{ visibility: 'hidden' }} />}
         </Grid>
-        <Hidden xsDown>
-          <Grid item >
-            <Search />
+        <Grid item md={8} xs={10} container alignItems='center' spacing={16} >
+          <Grid item style={{ marginRight: 'auto' }}>
+            <Logo />
           </Grid>
-        </Hidden>
-        <Grid item >
-          <BasketCart />
+          <Hidden xsDown>
+            <Grid item >
+              <Search />
+            </Grid>
+          </Hidden>
+          <Grid item >
+            <BasketCart />
+          </Grid>
+          <Hidden smUp>
+            <Grid item >
+              <Drawer />
+            </Grid>
+          </Hidden>
         </Grid>
-        <Hidden smUp>
-          <Grid item >
-            <Drawer />
-          </Grid>
-        </Hidden>
-      </Grid>
-      <Grid item xs={1} container justify='flex-end'>
-        <Choicelanguage />
-      </Grid>
+        <Grid item xs={1} container justify='flex-end'>
+          <Choicelanguage />
+        </Grid>
 
-    </Toolbar>
-  </AppBar>
+      </Toolbar>
+    </AppBar >
+  }
 
-})
+
+}
+
+export default compose(
+  withRouter
+)(Header)

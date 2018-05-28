@@ -35,21 +35,7 @@ const styles = {
 
 class BasketCart extends React.Component {
 
-  state = {
-    anchorEl: null,
 
-  }
-
-  handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
-  cleanClose = () => {
-    this.props.cleanBasket()
-    this.handleClose()
-  }
   render() {
     const { totalBasketCount, classes, width } = this.props
 
@@ -67,9 +53,7 @@ class BasketCart extends React.Component {
         className={classnames({
           [classes.circled]: width === 'sm' || width === 'xs' || width === 'md'
         })}
-        onClick={this.handleClick}
-        aria-owns={this.state.anchorEl ? 'simple-menu' : null}
-        aria-haspopup="true"
+
         color='inherit'
         disabled={totalBasketCount > 0 ? false : true}
       >

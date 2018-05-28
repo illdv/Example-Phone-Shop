@@ -21,7 +21,7 @@ const Basket = ({ phones }) => {
           </Typography>
         :
         <React.Fragment>
-          <Grid container item sm={10} xs={12} >
+          <Grid container item sm={10} xs={12} direction='column' >
             {phones.map(phone =>
               <Content phone={phone} key={phone.id} />
 

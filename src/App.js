@@ -13,10 +13,10 @@ class App extends Component {
     render() {
         return (
             <React.Fragment>
-                <CssBaseline />
                 <Header />
                 <Routes />
                 <Footer />
+                <CssBaseline />
                 <BtnScrollToTop />
             </React.Fragment>
 

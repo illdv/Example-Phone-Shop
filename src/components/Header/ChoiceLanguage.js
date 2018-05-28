@@ -1,9 +1,19 @@
 import React from 'react';
-
-
-import { IconButton, MenuItem, Menu, Typography, Hidden, Tooltip } from '@material-ui/core'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { languageChange } from '../../AC'
+import { withStyles } from '@material-ui/core/styles';
+import { IconButton, MenuItem, Menu, Typography, Hidden, Tooltip, Button, withWidth } from '@material-ui/core'
 import { Language } from '@material-ui/icons'
+import classnames from 'classnames'
 
+const styles = {
+  circled: {
+    minWidth: 48,
+    height: 48,
+    borderRadius: '50%'
+  },
+};
 
 const options = [
   'Russian',
@@ -11,12 +21,16 @@ const options = [
 ];
 
 class Choicelanguage extends React.Component {
+
   state = {
     anchorEl: null,
     selectedIndex: 1,
   };
 
-
+  componentDidMount() {
+    options[this.state.selectedIndex]
+    this.props.languageChange(options[this.state.selectedIndex])
+  }
 
   handleClickListItem = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -31,25 +45,35 @@ class Choicelanguage extends React.Component {
   };
 
   render() {
+    const { classes, width } = this.props
     const { anchorEl } = this.state;
-    const languageWord = () => options[this.state.selectedIndex].toUpperCase().substring(0, 3)
+    const languageWord = () => {
+      const lang = options[this.state.selectedIndex].toUpperCase().substring(0, 3)
+      return lang
+    }
     return (
       <div>
 
-        <Hidden mdDown>
-          <Typography variant="body2" component='span' style={{
-            display: 'inline-block', verticalAlign: 'middle'
-          }} color='inherit'>
-            {languageWord()}
-          </Typography>
-        </Hidden>
+
         <Tooltip title={languageWord()}>
-          <IconButton
+          <Button
+            size="small"
+
+            className={classnames({
+              [classes.circled]: width === 'sm' || width === 'xs'
+            })}
             color='inherit'
             onClick={this.handleClickListItem}
           >
+            <Hidden smDown>
+              <Typography variant="body2" component='span' style={{
+                display: 'inline-block', verticalAlign: 'middle', paddingRight: 10
+              }} color='inherit'>
+                {languageWord()}
+              </Typography>
+            </Hidden>
             <Language />
-          </IconButton>
+          </Button>
         </Tooltip>
         <Menu
           id="lock-menu"
@@ -74,4 +98,11 @@ class Choicelanguage extends React.Component {
 
 
 
-export default Choicelanguage;
+export default compose(
+  withStyles(styles),
+  withWidth(),
+  connect(
+    null,
+    { languageChange }
+  )
+)(Choicelanguage);

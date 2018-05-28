@@ -9,11 +9,11 @@ const styles = {
 
   btnTop: {
     position: 'fixed',
-    bottom: 5,
-    right: 5,
+    bottom: 135.97,
+    right: 1,
     transition: 'all 0.5s ease-in-out',
     transitionProperty: 'opacity, right',
-    zIndex: 1000
+    zIndex: 10000
   },
   opacity: {
     opacity: 0,
@@ -48,7 +48,7 @@ class BtnScrollToTop extends React.Component {
   }
 
   vverh = () => {
-    window.scrollBy(0, -40); // чем меньше значение (цифра -10), тем выше скорость перемещения
+    window.scrollBy(0, -150); // чем меньше значение (цифра -10), тем выше скорость перемещения
     if (window.pageYOffset > 0) {
       requestAnimationFrame(this.vverh);
     }
@@ -68,7 +68,7 @@ class BtnScrollToTop extends React.Component {
     const { classes } = this.props
     return <Tooltip id="Scroll-to-top" title="Scroll to top" placement="top">
       <Button variant="fab"
-        color='primary'
+        color='default'
         onClick={() => this.vverh()}
         className={classNames({
           [classes.opacity]: !this.state.show,

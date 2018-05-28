@@ -10,12 +10,13 @@ import Snackbars from '../components/Snackbars'
 import { Main as LayoutMain, Section } from '../layouts/'
 
 const Main = () => {
-  return <LayoutMain>
+  return <LayoutMain >
     <Categories />
     <Section >
       <Phones />
     </Section>
     <Snackbars />
+
   </LayoutMain>
 }
 

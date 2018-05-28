@@ -212,3 +212,12 @@ export const cleanBasket = () => dispatch => {
     })
     dispatch(replace('/phones'))
 }
+
+export const languageChange = lang => dispatch => {
+
+
+    dispatch({
+        type: 'LANGUAGE_CHANGE',
+        payload: lang
+    })
+}
