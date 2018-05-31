@@ -3,8 +3,9 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { languageChange } from '../../AC'
 import { withStyles } from '@material-ui/core/styles';
-import { IconButton, MenuItem, Menu, Typography, Hidden, Tooltip, Button, withWidth } from '@material-ui/core'
+import { MenuItem, Menu, Typography, Hidden,  Button, withWidth } from '@material-ui/core'
 import { Language } from '@material-ui/icons'
+import LocalizedText from '../../translate/localized-text'
 import classnames from 'classnames'
 
 const styles = {
@@ -13,6 +14,9 @@ const styles = {
     height: 48,
     borderRadius: '50%'
   },
+  paper: {
+    left: 1630.47,
+  }
 };
 
 const options = [
@@ -28,66 +32,59 @@ class Choicelanguage extends React.Component {
   };
 
   componentDidMount() {
-    options[this.state.selectedIndex]
-    this.props.languageChange(options[this.state.selectedIndex])
+    this.props.languageChange(options[this.state.selectedIndex]);
+
+  }
+  componentDidUpdate() {
+    this.props.languageChange(options[this.state.selectedIndex]);
   }
 
-  handleClickListItem = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleMenuItemClick = (event, index) => {
-    this.setState({ selectedIndex: index, anchorEl: null });
-  };
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
 
   render() {
     const { classes, width } = this.props
-    const { anchorEl } = this.state;
-    const languageWord = () => {
-      const lang = options[this.state.selectedIndex].toUpperCase().substring(0, 3)
-      return lang
-    }
+    const { anchorEl, selectedIndex } = this.state;
+    const languageWord = () => options[selectedIndex].toUpperCase().substring(0, 3)
+
+
     return (
       <div>
-
-
-        <Tooltip title={languageWord()}>
           <Button
             size="small"
-
             className={classnames({
               [classes.circled]: width === 'sm' || width === 'xs'
             })}
             color='inherit'
-            onClick={this.handleClickListItem}
+            onClick={event =>
+              this.setState({ anchorEl: event.currentTarget })
+            }
           >
             <Hidden smDown>
               <Typography variant="body2" component='span' style={{
-                display: 'inline-block', verticalAlign: 'middle', paddingRight: 10
+                 paddingRight: 10
               }} color='inherit'>
                 {languageWord()}
               </Typography>
             </Hidden>
             <Language />
           </Button>
-        </Tooltip>
         <Menu
           id="lock-menu"
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
-          onClose={this.handleClose}
+          onClose={() => {
+            this.setState({ anchorEl: null });
+          }}
         >
           {options.map((option, index) => (
             <MenuItem
               key={option}
-              selected={index === this.state.selectedIndex}
-              onClick={event => this.handleMenuItemClick(event, index)}
+              selected={index === selectedIndex}
+              onClick={event => this.setState({
+                selectedIndex: index,
+                anchorEl: null
+              })}
             >
-              {option}
+            <LocalizedText>{option}</LocalizedText>
             </MenuItem>
           ))}
         </Menu>

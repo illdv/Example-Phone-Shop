@@ -36,7 +36,7 @@ const Basket = ({ phones }) => {
 
 
                 {[<Total />, <Checkout phones={phones} />, <CleanBasket />].map(value =>
-                  <Grid item key={Date.now() + Math.random()}>{value}</Grid>)}
+                  <Grid item style={{width: 190}}key={Date.now() + Math.random()}>{value}</Grid>)}
 
               </Grid>
 

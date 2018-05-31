@@ -6,6 +6,7 @@ import { compose } from 'redux'
 import { propEq, isNil } from 'ramda'
 import { getActiveCategoryId } from '../helpers'
 import classNames from 'classnames'
+import LocalizedText from '../translate/localized-text'
 
 import { Grid, Chip } from '@material-ui/core';
 
@@ -39,7 +40,7 @@ const Categories = ({ categories, activeCategoryId, classes }) => {
           [classes.active]: isNil(activeCategoryId),
           [classes.chip]: true,
         })}
-        label={'All'.toUpperCase()}
+        label={<LocalizedText>ALL</LocalizedText>}
 
       >
         />

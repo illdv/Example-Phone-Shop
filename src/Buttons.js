@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { addPhoneToBasket } from './AC'
 import { AddShoppingCart, ArrowBack, Payment } from '@material-ui/icons';
-
+import LocalizedText from './translate/localized-text'
 import { Button, Tooltip, IconButton } from '@material-ui/core'
 
 export const Continue = ({ visibilityHidden }) => {
@@ -13,9 +13,7 @@ export const Continue = ({ visibilityHidden }) => {
     <IconButton variant="fab"
       component={Link} to='/phones'
       style={visibilityHidden}
-      color='inherit'
-
-    >
+      color='inherit'>
       <ArrowBack />
     </IconButton>
   </Tooltip>
@@ -23,16 +21,15 @@ export const Continue = ({ visibilityHidden }) => {
 
 
 export const CheckoutBasket = ({ phones }) => (
-  <Tooltip id="checkout-icon" title="checkout purchase">
     <Button
       variant="raised"
       color='primary'
-      onClick={() => alert(JSON.stringify(phones))}
-    >
-
+      fullWidth
+      onClick={() => alert(JSON.stringify(phones))}>
       <Payment />
+      Checkout
     </Button>
-  </Tooltip>
+
 )
 
 
@@ -44,7 +41,7 @@ const addToBasket = ({ addPhoneToBasket, phone }) => (
     fullWidth={true}
     onClick={() => addPhoneToBasket(phone)}>
     <AddShoppingCart />
-    Buy Now
+   <LocalizedText>buy now</LocalizedText>
 </Button>
 )
 

@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { withStyles } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import { Tabs, Tab, Typography, Grid, Paper, Button } from '@material-ui/core';
-
+import LocalizedText from './../translate/localized-text'
 import { withRouter } from 'react-router-dom'
 
 function TabContainer({ children, dir }) {
@@ -16,9 +16,6 @@ function TabContainer({ children, dir }) {
 
 
 const styles = theme => {
-
-
-
   return ({
     grand: {
       background: theme.palette.background.default,
@@ -72,14 +69,23 @@ class Footer extends React.Component {
             onChangeIndex={this.handleChangeIndex}
           >
             <TabContainer dir={theme.direction}>
-              <Button color='default' component='a' target='_blank' href='https://twitter.com/Dvillill' >look source</Button>
+              <Button color='default' component='a' target='_blank' href='https://twitter.com/Dvillill' >
+              <LocalizedText>look source</LocalizedText>
+              </Button>
             </TabContainer>
+
             <TabContainer dir={theme.direction}>
-              <Button color='primary' component='a' target='_blank' href='https://github.com/illdv/Example-Phone-Shop' >tweet me</Button>
+              <Button color='primary' component='a' target='_blank' href='https://github.com/illdv/Example-Phone-Shop' >
+              <LocalizedText>tweet me</LocalizedText>
+              </Button>
             </TabContainer>
+
             <TabContainer dir={theme.direction}>
-              <Button color='primary' component='a' target='_blank' href='https://t.me/KirillDvoynikov' >write in telegram</Button>
+              <Button color='primary' component='a' target='_blank' href='https://t.me/KirillDvoynikov' >
+              <LocalizedText>write in telegram</LocalizedText>
+              </Button>
             </TabContainer>
+
           </SwipeableViews>
         </Grid>
       </Grid>

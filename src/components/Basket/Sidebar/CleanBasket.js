@@ -10,7 +10,9 @@ const CleanBasket = ({ cleanBasket, marginRight }) =>
     <Button variant='raised'
       style={marginRight}
       color='secondary'
+      fullWidth
       onClick={cleanBasket}>
+      Empty basket
       < RemoveShoppingCart />
     </Button >
   </Tooltip>

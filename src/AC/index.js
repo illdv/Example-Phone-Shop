@@ -1,9 +1,9 @@
-import { FETCH_PHONES, LOAD_MORE_PHONES, FETCH_PHONES_BY_NAME, START, SUCCESS, FAIL, ADD_PHONE_TO_BASKET, SEARCH_PHONE, FETCH_CATEGORIES, REMOVE_PHONE_FROM_BASKET, CLEAN_BASKET, CHANGE_QUALITY } from "../constants";
+import { FETCH_PHONES, LOAD_MORE_PHONES, FETCH_PHONES_BY_NAME, START, SUCCESS, FAIL, ADD_PHONE_TO_BASKET, SEARCH_PHONE, FETCH_CATEGORIES, REMOVE_PHONE_FROM_BASKET, CLEAN_BASKET, CHANGE_QUALITY, LANGUAGE_CHANGE  } from "../constants";
 import * as R from 'ramda'
 import { replace } from 'react-router-redux'
 
 import { phones, categories } from '../mocky/'
-
+import dictionaries from './../translate/dictionaries'
 const generateId = phones => phones.map(phone => R.assoc('id', (Date.now() + Math.random()).toString(), phone))
 
 
@@ -214,10 +214,8 @@ export const cleanBasket = () => dispatch => {
 }
 
 export const languageChange = lang => dispatch => {
-
-
     dispatch({
-        type: 'LANGUAGE_CHANGE',
-        payload: lang
+        type: LANGUAGE_CHANGE ,
+        payload: {[lang]:dictionaries[lang]}
     })
 }

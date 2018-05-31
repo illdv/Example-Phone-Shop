@@ -1,6 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import { Button, Tooltip } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import classNames from 'classnames';
 import { ArrowUpward } from '@material-ui/icons';
 
@@ -9,7 +9,7 @@ const styles = {
 
   btnTop: {
     position: 'fixed',
-    bottom: 135.97,
+    bottom: 161.97,
     right: 1,
     transition: 'all 0.5s ease-in-out',
     transitionProperty: 'opacity, right',
@@ -66,8 +66,7 @@ class BtnScrollToTop extends React.Component {
   render() {
 
     const { classes } = this.props
-    return <Tooltip id="Scroll-to-top" title="Scroll to top" placement="top">
-      <Button variant="fab"
+    return <Button variant="fab"
         color='default'
         onClick={() => this.vverh()}
         className={classNames({
@@ -79,7 +78,7 @@ class BtnScrollToTop extends React.Component {
       >
         <ArrowUpward />
       </Button>
-    </Tooltip>
+  
   }
 
 }

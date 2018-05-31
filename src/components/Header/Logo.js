@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Typography, withWidth } from '@material-ui/core'
+import LocalizedText from '../../translate/localized-text'
 
 
 
@@ -19,7 +20,7 @@ const Logo = ({ width }) => {
   console.log(width);
 
   return <Typography variant='headline' color='inherit' style={{ fontSize: sizeText(), textDecoration: 'none' }} component={Link} to='/phones' >
-    name of shop
-</Typography>
+     <LocalizedText>name of shop</LocalizedText>
+  </Typography>
 }
 export default withWidth()(Logo)

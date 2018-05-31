@@ -5,8 +5,7 @@ import { compose } from 'redux'
 import { withStyles } from '@material-ui/core/styles'
 import { FormControl, InputAdornment, IconButton, Input } from '@material-ui/core'
 import { Search as SearchIcon } from '@material-ui/icons'
-
-
+import {head,keys} from 'ramda'
 const styles = theme => {
   return ({
     root: {
@@ -30,19 +29,35 @@ const styles = theme => {
 }
 
 class Search extends Component {
-
   state = {
-    value: ''
+    value: '',
+    placeholder : ''
+  }
+
+  static getDerivedStateFromProps(props, state) {
+ if (head(keys(props.lang)) === 'English') {
+   return {
+     placeholder: 'Search'
+   }
+  }
+   if (head(keys(props.lang)) === 'Russian') {
+    return {
+      placeholder: 'Поиск'
+    }
+ }
+    return null
   }
 
   render() {
 
+    
     const { classes } = this.props
+
     return (
       <FormControl component='form' onSubmit={this.handleSubmit}>
         <Input
           id="search-field"
-          placeholder='Search'
+          placeholder={this.state.placeholder}
           value={this.state.value}
           onChange={this.handleChange}
           disableUnderline
@@ -54,8 +69,7 @@ class Search extends Component {
             <InputAdornment position="end">
               <IconButton
                 color='inherit'
-                onClick={this.handleSubmit}
-              >
+                onClick={this.handleSubmit}>
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
@@ -83,4 +97,6 @@ class Search extends Component {
 
 export default compose(
   withStyles(styles),
-  connect(null, { searchPhone }))(Search)
+  connect(state => ({
+    lang: state.language
+  }), { searchPhone }))(Search)

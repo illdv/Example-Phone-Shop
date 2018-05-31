@@ -9,7 +9,7 @@ import ShoppingCart from '@material-ui/icons/ShoppingCart'
 import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'redux'
 import classnames from 'classnames'
-
+import LocalizedText from '../../translate/localized-text'
 
 
 const styles = {
@@ -59,7 +59,7 @@ class BasketCart extends React.Component {
       >
         <ShoppingCart />
         <Hidden mdDown>
-          My basket
+          <LocalizedText>my basket</LocalizedText>
         </Hidden>
       </Button>
     </Badge>

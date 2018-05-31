@@ -5,10 +5,15 @@ import { compose, pick, toPairs } from 'ramda'
 import { getPhoneById } from '../helpers'
 import AddToBasket from '../Buttons'
 import { Grid, Typography, Divider, ListItem, ListItemText, CardContent, CardMedia, CardHeader } from '@material-ui/core'
-
+import { withStyles } from '@material-ui/core/styles';
 import { Main, Section } from '../layouts'
 
+const styles = theme => ({
+  action: {
+    margin: 0
+  },
 
+});
 
 class SelfPhone extends Component {
 
@@ -18,13 +23,11 @@ class SelfPhone extends Component {
 
   render() {
 
-
     const { phone } = this.props
 
 
 
     return <Main>
-
       <Section paperStyle={{ boxShadow: '0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12)', borderRadius: 2, background: '#fff' }}>
         {phone && this.LeftPanel()}
         {phone && this.RightPanel()}
@@ -36,7 +39,7 @@ class SelfPhone extends Component {
 
   LeftPanel = () => {
 
-    const { phone } = this.props
+    const { phone, classes } = this.props
 
     return <Grid item sm={4} xs={12}>
 
@@ -47,10 +50,17 @@ class SelfPhone extends Component {
       />
       <CardHeader
         title={`${phone.price}$`}
-        subheader={phone.name}
-        action={<AddToBasket phone={phone} />}
+        action={
+        <AddToBasket phone={phone} />
+      }
+      classes={{
+        action: classes.action
+      }}
       />
       <CardContent>
+      <Typography variant="headline" component="h4" style={{marginBottom: 8, textAlign: 'center'}} >
+           {phone.name}
+          </Typography>
         <Typography variant="body1">
           {phone.description}
         </Typography>
@@ -91,9 +101,11 @@ class SelfPhone extends Component {
 }
 
 
-export default connect(
+export default compose(
+  withStyles(styles),
+  connect(
   state => ({
     phone: getPhoneById(state, state.selfPhonePage.id)
   }),
   { fetchPhoneByName }
-)(SelfPhone)
+))(SelfPhone)
