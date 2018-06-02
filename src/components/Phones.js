@@ -4,7 +4,7 @@ import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { fetchPhones, loadMorePhones, fetchCategories } from "../AC";
 
-import { getPhones } from '../helpers'
+import { getPhones } from '../selectors'
 import Phone from './Phone'
 import { Grid } from '@material-ui/core'
 
@@ -45,10 +45,11 @@ class Phones extends Component {
     return (
       <Grid container spacing={16} justify='center'>
         {this.props.phones.map(phone =>
-          <Grid item md={4} sm={6} xs={10} key={phone.id}>
+          <Grid item md={4} sm={6} xs={12} key={phone.id}>
             <Phone phone={phone} />
           </Grid>
         )}
+
       </Grid>
     )
   }

@@ -15,7 +15,7 @@ export const Main = withWidth()(({ children, width }) => {
   </Grid>
 })
 
-export const Section = ({ paperStyle, children }) => <Grid container item md={8} xs={11} justify='center' component='section' style={paperStyle} >{children}</Grid>
+export const Section = ({ paperStyle, children }) => <Grid container item md={8} xs={10} justify='center' component='section' style={paperStyle} >{children}</Grid>
 
 
 

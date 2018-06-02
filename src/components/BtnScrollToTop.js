@@ -67,7 +67,7 @@ class BtnScrollToTop extends React.Component {
 
     const { classes } = this.props
     return <Button variant="fab"
-        color='default'
+        color='primary'
         onClick={() => this.vverh()}
         className={classNames({
           [classes.opacity]: !this.state.show,

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getTotalBasketPrice } from '../../helpers'
+import { getTotalBasketPrice } from '../../selectors'
 
-import { Button, Badge, Hidden, withWidth } from '@material-ui/core'
+import { Button, Badge, Hidden, withWidth, Tooltip } from '@material-ui/core'
 import ShoppingCart from '@material-ui/icons/ShoppingCart'
 
 import { withStyles } from '@material-ui/core/styles';
@@ -47,6 +47,7 @@ class BasketCart extends React.Component {
         [classes.xsVisibility]: width === 'xs',
       })
     }}>
+    <Tooltip title={<LocalizedText>to shopping cart</LocalizedText>}>
       <Button component={Link} to='/basket'
         size="small"
 
@@ -62,6 +63,7 @@ class BasketCart extends React.Component {
           <LocalizedText>my basket</LocalizedText>
         </Hidden>
       </Button>
+      </Tooltip>
     </Badge>
   }
 

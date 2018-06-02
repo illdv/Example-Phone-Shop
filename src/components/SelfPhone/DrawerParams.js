@@ -1,21 +1,24 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { IconButton, Drawer, Tooltip } from '@material-ui/core';
+import {PermDeviceInformation} from '@material-ui/icons'
+import RightPanel from './RightPanel'
+import LocalizedText from '../../translate/localized-text'
 
-import { IconButton, Drawer } from '@material-ui/core';
-import { Search as SearchIcon } from '@material-ui/icons'
-import Search from './Search'
 
 const styles = theme => ({
   drawerPaper: {
-    height: 50,
-    background: theme.palette.primary.main,
+		height: 'auto',
+		width: '70%',
+    background: theme.palette.background.paper,
     justifyContent: 'center',
-    boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)}'
+		top: 83.99,
+    bottom: 161.97,
   },
 });
 
 
-class DrawerHead extends React.Component {
+class DrawerParams extends React.Component {
   state = {
     right: false,
   };
@@ -27,16 +30,16 @@ class DrawerHead extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, phone } = this.props;
     return (
       <div>
-
+<Tooltip  placement="left" title={<LocalizedText>look params</LocalizedText>}>
         <IconButton
           color='inherit'
           onClick={this.toggleDrawer('right', true)}>
-          <SearchIcon />
+          <PermDeviceInformation />
         </IconButton>
-
+</Tooltip>
         <Drawer anchor="right" open={this.state.right} onClose={this.toggleDrawer('right', false)}
           classes={{
             paper: classes.drawerPaper,
@@ -44,7 +47,7 @@ class DrawerHead extends React.Component {
           <div
             tabIndex={0}
           >
-            <Search />
+          {  <RightPanel phone={phone} />}
           </div>
         </Drawer>
       </div>
@@ -54,4 +57,4 @@ class DrawerHead extends React.Component {
 
 
 
-export default withStyles(styles)(DrawerHead);
+export default withStyles(styles)(DrawerParams);

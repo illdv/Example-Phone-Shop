@@ -4,9 +4,9 @@ import classnames from 'classnames'
 import { withStyles } from '@material-ui/core/styles';
 import { IconButton, Collapse, Typography, Card, CardActions, CardContent, CardMedia, CardHeader } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
-
-
 import AddToBasket from '../Buttons'
+
+import LocalizedText from './../translate/localized-text'
 
 const styles = theme => ({
   expand: {
@@ -41,16 +41,13 @@ const styles = theme => ({
 class Phone extends Component {
   state = { expanded: false };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState.expanded !== this.state.expanded;
-  }
-
-
 
   render() {
     const { phone, classes } = this.props
 
     return <Card raised>
+
+    
       <div className={classes.relativePosition}>
         <Link to={`/phones/${phone.name}`}>
           <CardMedia
@@ -67,7 +64,7 @@ class Phone extends Component {
         </div>
       </div>
       <CardHeader
-        title={`${phone.price}$`}
+        title={<LocalizedText>{phone.price}</LocalizedText>}
         subheader={phone.name}
 
         action={

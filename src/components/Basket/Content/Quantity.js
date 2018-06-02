@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { handleQuantityToBasket } from '../../../AC'
-
 import { Grid, Typography, IconButton, Divider, withWidth } from '@material-ui/core';
 import { AddCircleOutline, RemoveCircleOutline } from '@material-ui/icons';
 
@@ -21,7 +20,7 @@ class Quantity extends Component {
         <IconButton onClick={
           this.handleInput(this.state.input, '-')
         }
-          color='primary'
+          color='inherit'
         >
           <RemoveCircleOutline />
         </IconButton>
@@ -31,7 +30,7 @@ class Quantity extends Component {
       </Grid>
       <Grid item >
         <IconButton onClick={this.handleInput(this.state.input, '+')}
-          color='primary' >
+          color='inherit' >
           <AddCircleOutline />
         </IconButton>
       </Grid>
@@ -41,8 +40,6 @@ class Quantity extends Component {
   handleInput = (state, sign) => () => {
 
     const currentNum = sign === '-' ? state - 1 : state + 1
-
-    console.log(currentNum);
 
     currentNum <= 10 && this.props.handleQuantityToBasket(currentNum, this.props.phone)
   }

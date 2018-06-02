@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Main from './components/Main'
-import SelfPhone from './components/SelfPhone';
+import SelfPhone from './components/SelfPhone/';
 import Basket from './components/Basket/'
 import Error from './components/Error'
 

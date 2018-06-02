@@ -4,7 +4,7 @@ import { values } from 'ramda'
 import { Link, withRouter } from 'react-router-dom'
 import { compose } from 'redux'
 import { propEq, isNil } from 'ramda'
-import { getActiveCategoryId } from '../helpers'
+import { getActiveCategoryId } from '../selectors'
 import classNames from 'classnames'
 import LocalizedText from '../translate/localized-text'
 
@@ -18,8 +18,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   active: {
-    background: '#3f51b5',
-    color: 'white'
+    background: theme.palette.primary.dark,
+    color: theme.palette.primary.contrastText
   },
   chip: {
     textDecoration: 'none',

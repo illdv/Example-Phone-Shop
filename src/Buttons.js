@@ -1,15 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-
 import { addPhoneToBasket } from './AC'
-import { AddShoppingCart, ArrowBack, Payment } from '@material-ui/icons';
+import { AddShoppingCart, ArrowBack } from '@material-ui/icons';
 import LocalizedText from './translate/localized-text'
 import { Button, Tooltip, IconButton } from '@material-ui/core'
 
+
+
 export const Continue = ({ visibilityHidden }) => {
 
-  return <Tooltip id="continue-shopping-icon" title="continue shopping" >
+  return <Tooltip id="continue-shopping-icon" title={<LocalizedText>continue shopping</LocalizedText>}>
     <IconButton variant="fab"
       component={Link} to='/phones'
       style={visibilityHidden}
@@ -18,21 +19,6 @@ export const Continue = ({ visibilityHidden }) => {
     </IconButton>
   </Tooltip>
 }
-
-
-export const CheckoutBasket = ({ phones }) => (
-    <Button
-      variant="raised"
-      color='primary'
-      fullWidth
-      onClick={() => alert(JSON.stringify(phones))}>
-      <Payment />
-      Checkout
-    </Button>
-
-)
-
-
 
 const addToBasket = ({ addPhoneToBasket, phone }) => (
   <Button

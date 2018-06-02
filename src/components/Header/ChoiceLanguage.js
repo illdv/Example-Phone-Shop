@@ -3,12 +3,12 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { languageChange } from '../../AC'
 import { withStyles } from '@material-ui/core/styles';
-import { MenuItem, Menu, Typography, Hidden,  Button, withWidth } from '@material-ui/core'
+import { MenuItem, Menu, Typography, Hidden,  Button, withWidth, Tooltip } from '@material-ui/core'
 import { Language } from '@material-ui/icons'
 import LocalizedText from '../../translate/localized-text'
 import classnames from 'classnames'
 
-const styles = {
+const styles = theme => ({
   circled: {
     minWidth: 48,
     height: 48,
@@ -16,8 +16,11 @@ const styles = {
   },
   paper: {
     left: 1630.47,
+  },
+  selected: {
+    backgroundColor: theme.palette.primary.light
   }
-};
+});
 
 const options = [
   'Russian',
@@ -28,18 +31,25 @@ class Choicelanguage extends React.Component {
 
   state = {
     anchorEl: null,
-    selectedIndex: 1,
+    selectedIndex:  localStorage.language ? +localStorage.language : 1,
   };
 
   componentDidMount() {
-    this.props.languageChange(options[this.state.selectedIndex]);
+    this.handlelanguage()
+   }
 
-  }
   componentDidUpdate() {
-    this.props.languageChange(options[this.state.selectedIndex]);
+    this.handlelanguage()
   }
 
-
+  handlelanguage = () => {
+    localStorage.language = this.state.selectedIndex  
+    if(localStorage.language) {
+     this.props.languageChange(options[+localStorage.language])
+    }    else {
+     this.props.languageChange(options[+localStorage.language]);
+    }
+  }
   render() {
     const { classes, width } = this.props
     const { anchorEl, selectedIndex } = this.state;
@@ -47,7 +57,9 @@ class Choicelanguage extends React.Component {
 
 
     return (
+      
       <div>
+        <Tooltip title={<LocalizedText>change language</LocalizedText>}>
           <Button
             size="small"
             className={classnames({
@@ -67,6 +79,7 @@ class Choicelanguage extends React.Component {
             </Hidden>
             <Language />
           </Button>
+          </Tooltip>
         <Menu
           id="lock-menu"
           anchorEl={anchorEl}
@@ -79,6 +92,9 @@ class Choicelanguage extends React.Component {
             <MenuItem
               key={option}
               selected={index === selectedIndex}
+              classes={{
+                selected: classes.selected
+              }}
               onClick={event => this.setState({
                 selectedIndex: index,
                 anchorEl: null

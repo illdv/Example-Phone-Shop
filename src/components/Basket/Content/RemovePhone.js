@@ -3,22 +3,21 @@ import { connect } from 'react-redux';
 import { removePhoneFromBasket } from '../../../AC'
 import Delete from '@material-ui/icons/Delete'
 import { Tooltip, IconButton, Typography } from '@material-ui/core';
-
+import LocalizedText from  '../../../translate/localized-text'
 
 
 const removePhone = ({ phone, removePhoneFromBasket }) => <div style={{ textAlign: 'center' }}>
   <Typography variant='body2'>
-    {`$${phone.price}`}
+
+   <LocalizedText>{phone.price}</LocalizedText> 
   </Typography>
-  <Tooltip id="tooltip-icon" title="Delete phone">
-    <IconButton color="default"
+  <Tooltip title={<LocalizedText>remove phone</LocalizedText>}>
+    <IconButton color="inherit"
       onClick={() => removePhoneFromBasket(phone.id)}
     >
       <Delete />
-
     </IconButton>
-
-  </Tooltip>
+    </Tooltip>
 </div>
 
 

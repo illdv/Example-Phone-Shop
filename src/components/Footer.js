@@ -16,13 +16,18 @@ function TabContainer({ children, dir }) {
 
 
 const styles = theme => {
+  console.log(theme.palette);
+  
   return ({
     grand: {
       background: theme.palette.background.default,
       position: 'fixed',
       bottom: 0,
     },
-
+    headFooter: {
+      background: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText
+    },
   })
 };
 
@@ -49,7 +54,7 @@ class Footer extends React.Component {
     return (
       <Grid container component='footer' justify='center' className={classes.grand} >
         <Grid item xs={12} >
-          <Paper style={{ background: '#3f51b5', color: 'white' }}>
+          <Paper  className={classes.headFooter}>
             <Tabs
               value={this.state.value}
               onChange={this.handleChange}
@@ -75,13 +80,13 @@ class Footer extends React.Component {
             </TabContainer>
 
             <TabContainer dir={theme.direction}>
-              <Button color='primary' component='a' target='_blank' href='https://github.com/illdv/Example-Phone-Shop' >
+              <Button color='default' component='a' target='_blank' href='https://github.com/illdv/Example-Phone-Shop' >
               <LocalizedText>tweet me</LocalizedText>
               </Button>
             </TabContainer>
 
             <TabContainer dir={theme.direction}>
-              <Button color='primary' component='a' target='_blank' href='https://t.me/KirillDvoynikov' >
+              <Button color='default' component='a' target='_blank' href='https://t.me/KirillDvoynikov' >
               <LocalizedText>write in telegram</LocalizedText>
               </Button>
             </TabContainer>

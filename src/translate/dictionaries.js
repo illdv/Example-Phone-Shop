@@ -8,7 +8,15 @@ export const English = {
 	'tweet me': 'tweet me',
 	'write in telegram': 'write in telegram',
 	'Russian' : 'Russian',
-	'English' :  'English'
+	'English' :  'English',
+	'Total': 'Total',
+	'Empty basket' : 'Empty basket',
+	'Checkout': 'Checkout',
+	'continue shopping': 'continue shopping',
+	'look params' : 'look params',
+	'to shopping cart': 'to shopping cart',
+	'change language': 'change language',
+	'remove phone': 'remove phone',
 }
 
 export const Russian = {
@@ -21,7 +29,15 @@ export const Russian = {
 	'tweet me': 'твитнуть мне',
 	'write in telegram': 'написать в телеграмм',
 	'Russian' : 'Русский',
-	'English': 'Английский'
+	'English': 'Английский',
+	'Total': 'Всего',
+	'Empty basket' : 'Очистить корзину',
+	'Checkout': 'Оплатить',
+	'continue shopping': 'продолжить покупки',
+	'look params': 'посмотреть параметры',
+	'to shopping cart': 'в корзину',
+	'change language': 'изменить язык',
+	'remove phone': 'удалить телефон'
 }
 
 export default {
