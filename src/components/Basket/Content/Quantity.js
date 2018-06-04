@@ -41,7 +41,7 @@ class Quantity extends Component {
 
     const currentNum = sign === '-' ? state - 1 : state + 1
 
-    currentNum <= 10 && this.props.handleQuantityToBasket(currentNum, this.props.phone)
+    currentNum <= 3 && this.props.handleQuantityToBasket(currentNum, this.props.phone)
   }
 
 }

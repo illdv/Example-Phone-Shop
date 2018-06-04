@@ -1,14 +1,12 @@
 import { FETCH_PHONES, LOAD_MORE_PHONES, FETCH_PHONES_BY_NAME, START, SUCCESS, FAIL, ADD_PHONE_TO_BASKET, SEARCH_PHONE, FETCH_CATEGORIES, REMOVE_PHONE_FROM_BASKET, CLEAN_BASKET, CHANGE_QUALITY, LANGUAGE_CHANGE  } from "../constants";
 import * as R from 'ramda'
 import { replace } from 'react-router-redux'
-
-import { phones, categories } from '../mocky/'
 import dictionaries from './../translate/dictionaries'
 const generateId = phones => phones.map(phone => R.assoc('id', (Date.now() + Math.random()).toString(), phone))
 
 
-// const phonesf = fetch('http://www.mocky.io/v2/5aeb3da33000001000575468')
-//     .then(response => response.json())
+const phones = fetch('http://www.mocky.io/v2/5aeb3da33000001000575468')
+    .then(response => response.json())
 
 
 export const fetchPhones = () => dispatch => {
@@ -17,30 +15,19 @@ export const fetchPhones = () => dispatch => {
         type: FETCH_PHONES + START
     })
 
-    try {
+
+    phones.then(body =>
         dispatch({
             type: FETCH_PHONES + SUCCESS,
-            payload: phones
+            payload: body.phones
         })
-    } catch (err) {
+    ).catch(error => {
         dispatch({
             type: FETCH_PHONES + FAIL,
-            payload: err
+            payload: error
         })
         dispatch(replace('/error'))
-    }
-    // phones.then(body =>
-    //     dispatch({
-    //         type: FETCH_PHONES + SUCCESS,
-    //         payload: body.phones
-    //     })
-    // ).catch(error => {
-    //     dispatch({
-    //         type: FETCH_PHONES + FAIL,
-    //         payload: error
-    //     })
-    //     dispatch(replace('/error'))
-    // })
+    })
 }
 
 
@@ -48,38 +35,23 @@ export const loadMorePhones = () => (dispatch, getState) => {
 
     const offset = (getState().phonesPage.ids).length
 
-
-
-
     dispatch({ type: LOAD_MORE_PHONES + START })
 
-    // // offset !== 12 && phones.then(body => {
+    offset !== 12 && phones.then(body => {
 
-    // //     return dispatch({
-    // //         type: LOAD_MORE_PHONES + SUCCESS,
-    // //         payload: generateId(body.phones)
-    // //     })
-    // // }
-    // // )
-    //     .catch(error => {
-    //         dispatch({
-    //             type: LOAD_MORE_PHONES + FAIL,
-    //             payload: error
-    //         })
-    //         dispatch(replace('/error'))
-    //     })
-    try {
-        offset !== 18 && dispatch({
+        return dispatch({
             type: LOAD_MORE_PHONES + SUCCESS,
-            payload: generateId(phones)
+            payload: generateId(body.phones)
         })
-    } catch (err) {
-        dispatch({
-            type: LOAD_MORE_PHONES + FAIL,
-            payload: err
-        })
-        dispatch(replace('/error'))
     }
+    )
+        .catch(error => {
+            dispatch({
+                type: LOAD_MORE_PHONES + FAIL,
+                payload: error
+            })
+            dispatch(replace('/error'))
+        })
 }
 
 
@@ -89,70 +61,41 @@ export const fetchPhoneByName = name => dispatch => {
         type: FETCH_PHONES_BY_NAME + START
     })
 
-    // phonesf.then(body => {
-
-
-
-    //     dispatch({
-    //         type: FETCH_PHONES_BY_NAME + SUCCESS,
-    //         payload: R.find(R.propEq('name', name))(body.phones)
-    //     })
-    // }
-
-    // ).catch(err => {
-    //     dispatch({
-    //         type: FETCH_PHONES_BY_NAME + FAIL,
-    //         payload: err,
-    //     })
-    //     dispatch(replace('/error'))
-    // }
-    // )
-    try {
-
-
+    phones.then(body => {
         dispatch({
             type: FETCH_PHONES_BY_NAME + SUCCESS,
-            payload: R.find(R.propEq('name', name))(phones)
+            payload: R.find(R.propEq('name', name))(body.phones)
         })
-    } catch (err) {
+    }
+
+    ).catch(err => {
         dispatch({
             type: FETCH_PHONES_BY_NAME + FAIL,
-            payload: err
+            payload: err,
         })
         dispatch(replace('/error'))
     }
+    )
 }
 
 export const fetchCategories = () => dispatch => {
 
     dispatch({ type: FETCH_CATEGORIES + START })
 
-    // fetch('http://www.mocky.io/v2/5ac7e0183100006000a57690')
-    //     .then(response => response.json())
-    //     .then(body => {
-    //         dispatch({
-    //             type: FETCH_CATEGORIES + SUCCESS,
-    //             payload: body.categories
-    //         })
-    //     }).catch(error =>
-    //         dispatch({
-    //             type: FETCH_CATEGORIES + FAIL,
-    //             payload: error,
-    //             error: true
-    //         })
-    //     )
-    try {
-        dispatch({
-            type: FETCH_CATEGORIES + SUCCESS,
-            payload: categories
-        })
-    } catch (err) {
-        dispatch({
-            type: FETCH_CATEGORIES + FAIL,
-            payload: err
-        })
-        dispatch(replace('/error'))
-    }
+    fetch('http://www.mocky.io/v2/5ac7e0183100006000a57690')
+        .then(response => response.json())
+        .then(body => {
+            return dispatch({
+                type: FETCH_CATEGORIES + SUCCESS,
+                payload: body.categories
+            })
+        }).catch(error =>
+            dispatch({
+                type: FETCH_CATEGORIES + FAIL,
+                payload: error,
+                error: true
+            })
+        )
 }
 
 export const addPhoneToBasket = phone => dispatch => {
@@ -190,6 +133,7 @@ export const searchPhone = text => dispatch => {
             R.map(phone => phone.name),
             R.filter(applySearch)
         )(body.phones)
+console.log(foundPhones);
 
         return dispatch({
             type: SEARCH_PHONE + SUCCESS,

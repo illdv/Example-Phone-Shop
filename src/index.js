@@ -17,8 +17,8 @@ const theme = createMuiTheme({
     action: {
       selected: "#ba68c8",
       hover: "#f3e5f5",
-      active: "#9c27b0"
-    }
+    },
+ 
   },
 
 });

@@ -10,7 +10,9 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
 
     case ADD_PHONE_TO_BASKET:
-      return R.append(payload, state)
+console.log(state);
+    
+      return  R.append(payload, state) 
 
 
     case CHANGE_QUALITY:
