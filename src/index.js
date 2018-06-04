@@ -6,7 +6,7 @@ import App from './App'
 import store from './store'
 import history from './history'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
+import 'typeface-roboto'
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
 
@@ -14,14 +14,13 @@ const theme = createMuiTheme({
   palette: {
     primary: purple,
     secondary: green,
+    action: {
+      selected: "#ba68c8",
+      hover: "#f3e5f5",
+      active: "#9c27b0"
+    }
   },
-  overrides: {
-    MuiMenuItem: { // Name of the component ⚛️ / style shee
-      selected: { // Name of the rule
-        background: 'white', // Some CSS
-      },
-    },
-  }
+
 });
 
 ReactDOM.render(

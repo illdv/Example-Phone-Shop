@@ -17,8 +17,8 @@ const styles = theme => ({
   paper: {
     left: 1630.47,
   },
-  selected: {
-    backgroundColor: theme.palette.primary.light
+  paddingZero: {
+    padding: 0
   }
 });
 
@@ -81,6 +81,7 @@ class Choicelanguage extends React.Component {
           </Button>
           </Tooltip>
         <Menu
+        MenuListProps={{style: {padding: 0}}}
           id="lock-menu"
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
@@ -90,11 +91,10 @@ class Choicelanguage extends React.Component {
         >
           {options.map((option, index) => (
             <MenuItem
+            button
+            disableRipple
               key={option}
               selected={index === selectedIndex}
-              classes={{
-                selected: classes.selected
-              }}
               onClick={event => this.setState({
                 selectedIndex: index,
                 anchorEl: null

@@ -1,7 +1,7 @@
 import React from 'react'
 import AddToBasket from '../../Buttons'
 import {compose} from 'redux'
-import { Grid, Typography, CardContent, CardMedia, CardHeader, IconButton, CardActions, withWidth, Hidden } from '@material-ui/core'
+import { Grid, Typography, CardContent, CardMedia, CardHeader, CardActions, withWidth, Hidden } from '@material-ui/core'
 import LocalizedText from '../../translate/localized-text'
 import { withStyles } from '@material-ui/core/styles';
 import DrawerParams from './DrawerParams'
